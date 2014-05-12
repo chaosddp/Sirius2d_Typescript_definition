@@ -6,15 +6,11 @@ declare function Class(...params)
 declare module ss2d {
     /**
      * 根据标签id或者名称获取对象
-     * @param selector
-     * @returns {HTMLElement}
      */
     function $(selector: string): HTMLElement;
 
     /**
      * 新建对象
-     * @param name
-     * @returns {HTMLElement}
      */
     function $new(name: string): HTMLElement;
 
@@ -25,23 +21,16 @@ declare module ss2d {
 
     /**
      * 拷贝
-     * @param object
-     * @returns {*}
      */
     function copy(object: Object);
 
     /**
      * 合并
-     * @param original
-     * @param extended
-     * @returns {*}
      */
     function merge(original, extended);
 
     /**
      * 获取对象偏移
-     * @param elem
-     * @returns {{left: (Number|number), top: (Number|number)}}
      */
     function getElementOffset(elem: HTMLElement): { left: number; top: number };
 
@@ -56,21 +45,18 @@ declare module ss2d {
      * 代理
      * @param method
      * @param scope 范围
-     * @returns {Function}
      */
     function proxy(method: Function, scope: Object): Function;
 
     /**
      * 弧度转角度
      * @param angle 弧度
-     * @returns {Number}
      */
     function radianToDegree(angle: number): number;
 
     /**
      * 角度转弧度
      * @param angle 角度
-     * @returns {Number}
      */
     function degreeToRadian(angle: number): number;
 
@@ -79,7 +65,6 @@ declare module ss2d {
      * @param	p1 范围点
      * @param	p2 范围点
      * @param	p3 范围点
-     * @return
      * 
      * TODO: point?
      */
@@ -91,7 +76,6 @@ declare module ss2d {
      * @param p2 范围点
      * @param p3 范围点
      * @param p4 碰撞点
-     * @returns {boolean}
      */
     function hitPoint(p1: Point, p2: Point, p3: Point, p4: Point): boolean;
 
@@ -112,14 +96,12 @@ declare module ss2d {
     /**
      * 计算图片最接近的乘方图片
      * @param 需要转换的值
-     * @return
      */
     function getScope(num: number): number;
 
     /**
      * 检测图片是否为2的次方
      * @param num 值
-     * @return
      */
     function isPower_2(num: number): boolean;
 
@@ -130,7 +112,6 @@ declare module ss2d {
 
     /**
      * 浏览器是否全屏状态
-     * @returns {*}
      */
     function isFullScreen(): boolean;
 
@@ -141,13 +122,13 @@ declare module ss2d {
 
     /**
      * 退出全屏
-     * @returns {*}
      */
     function cancelFullScreen();
 
 
 
-    // data folder
+    /*****************  data folder *********************/
+
 
     /**
      * 数据列表类
@@ -172,82 +153,86 @@ declare module ss2d {
     class ListItem { }
 
 
-    // display folder
+
+
+    /*****************  display folder *********************/
+
+
+
 
     /**
      * Blend 实现图像特效，粒子混色的重要手段，通过混色可以实现意想不到的神器效果。
-     * <br /> 演示地址:http://sirius2d.com/demos/d_22
-     * @class
+     * 演示地址:http://sirius2d.com/demos/d_22
      */
-    class Blend {
-        /** @lends ss2d.Blend */
+    enum Blend {
+
         /**
          * 无混色
          */
-        static BLEND_NONE: Blend;
+        BLEND_NONE,
 
         /**
          * 叠加
          */
-        static BLEND_ADD: Blend;
+        BLEND_ADD,
 
         /**
          * 普通透明度
          */
-        static BLEND_NORMAL: Blend;
+        BLEND_NORMAL,
 
         /**
          * 复合
          */
-        static BLEND_MULTIPLY: Blend;
+        BLEND_MULTIPLY,
 
         /**
          * 遮挡
          */
-        static BLEND_SCREEN: Blend;
+        BLEND_SCREEN,
 
         /**
          * 擦除
          */
-        static BLEND_ERASE: Blend;
+        BLEND_ERASE,
 
         /**
          * 排除
          */
-        static BLEND_EXCLUSION: Blend;
+        BLEND_EXCLUSION,
 
         /**
          * 灯光
          */
-        static BLEND_LIGHT: Blend;
+        BLEND_LIGHT,
 
         /**
          * 融化
          */
-        static BLEND_FUSE: Blend;
+        BLEND_FUSE,
 
         /**
          * 遮罩
          */
-        static BLEND_MASK: Blend;
+        BLEND_MASK,
 
         /**
          * 透明度叠加
          */
-        static BLEND_ADD_ALPHA: Blend;
+        BLEND_ADD_ALPHA
     }
-
 
     /**
     * DisplayObject 最底层的显示对象基类。
-    * @class
     */
     class DisplayObject extends EventDispatcher {
+
         x: number;
         y: number;
+
         /**
          * 使用GPU实现位移功能
-         * <br /> implement displacement with GPU
+         * implement displacement with GPU
          * TODO: needed?
          */
         //GPUX: number;
@@ -261,22 +246,20 @@ declare module ss2d {
 
         /**
          * 是否开启GPU加速 true:开启   false:不开启
-         * <br />implement displacement with GPU or CPU
+         * implement displacement with GPU or CPU
          * true: GPU    false:CPU
          */
-        GPU: number;
+        GPU: boolean;
 
         /**
          * 获取对象的颜色值
-         * <br />get RGB of the object
-         * @param value
+         * get RGB of the object
          */
         getColor(): { r: number; g: number; b: number };
 
         /**
         * 设置对象的颜色值
-        * <br /> set RGB of the object
-        * @returns {*}
+        * set RGB of the object
         */
         setColor(value: any);
 
@@ -285,8 +268,7 @@ declare module ss2d {
 
         /**
          * 获取对象的红色通道值
-         * <br />get red channel of the object
-         * @returns {number}
+         * get red channel of the object
          */
         getR(): number;
         setR(value: number);
@@ -310,50 +292,42 @@ declare module ss2d {
         setScaleY(value: number);
         /**
         * 获取对象的X轴倾斜值
-        * <br />get skew X of the object
-        * @returns {number}
+        * get skew X of the object
         */
         getSkewX(): number;
         /**
         * 设置对象的X轴倾斜值
-        * <br />set skew X of the object
-        * @param value
+        * set skew X of the object
         */
         setSkewX(value: number);
         /**
          * 获取对象的Y轴倾斜值
-         * <br />get skew Y of the object
-         * @returns {number}
+         * get skew Y of the object
          */
         getSkewY(): number;
         /**
          * 设置对象的Y轴倾斜值
-         * <br />set skew Y of the object
-         * @param value
+         * set skew Y of the object
          */
         setSkewY(value: number);
         /**
          * 获取对象的X轴偏移位置
-         * <br />get pivot X of the object
-         * @returns {number}
+         * get pivot X of the object
          */
         getPivotX(): number;
         /**
         * 设置对象的X轴偏移位置
-        * <br />set pivot X of the object
-        * @param value
+        * set pivot X of the object
         */
         setPivotX(value: number);
         /**
          * 获取对象的Y轴偏移量
-         * <br />get pivot Y of the object
-         * @returns {number}
+         * get pivot Y of the object
          */
         getPivotY(): number;
         /**
          * 设置对象的Y轴偏移量
-         * <br />set pivot Y of the object
-         * @param value
+         * set pivot Y of the object
          */
         setPivotY(value: number);
         getRotation(): number;
@@ -364,92 +338,73 @@ declare module ss2d {
         setVisible(value: boolean);
         /**
         * 获取对象的刷新状态
-        * <br />get a boolean value that indicates whether the object is redrawn
-        * @returns {boolean}
+        * <get a boolean value that indicates whether the object is redrawn
         */
         getIsRedraw(): boolean;
         /**
          * 设置对象的刷新状态
-         * <br />set a boolean value that indicates whether the object is redrawn
-         * @param value
+         * set a boolean value that indicates whether the object is redrawn
          */
         setIsRedraw(value: boolean);
         getParent();
         setParent(value);
         /**
         * 获取鼠标监测状态
-        * <br />get a boolean value that indicates whether the mouse event is listened
-        * @returns {boolean}
+        * get a boolean value that indicates whether the mouse event is listened
         */
         getMouseEnabled(): boolean;
         /**
-            * 设置鼠标监测状态
-            * <br />set a boolean value that indicates whether the mouse event is listened
-            * @param value
-            */
+        * 设置鼠标监测状态
+        * set a boolean value that indicates whether the mouse event is listened
+        */
         setMouseEnabled(value: boolean);
         /**
          * 获取用户数据
-         * <br />get the user data
-         * @returns {null}
+         * get the user data
          */
         getUserData();
         /**
          * 设置用户数据
-         * <br />set the user data
-         * @param value
+         * set the user data
          */
         setUserData();
         /**
          * 获取对象中心对齐状态
-         * <br />get a boolean value that indicates whether the object is aligned center
-         * @returns {boolean}
+         * get a boolean value that indicates whether the object is aligned center
          */
         getCenter(): boolean;
         /**
          * 设置对象中心对齐状态
-         * <br />set a boolean value that indicates whether the object is aligned center
-         * @param value
+         * set a boolean value that indicates whether the object is aligned center
          */
         setCenter(value: boolean);
         /**
          * 获取对象强制中心对齐状态 (无视动画偏移量的影响)
-         * <br />get a boolean value that indicates whether the object is aligned center (ignore the offsets of animations)
-         * @returns {boolean}
+         * get a boolean value that indicates whether the object is aligned center (ignore the offsets of animations)
          */
         getForceCenter(): boolean;
         /**
          * 设置对象强制中心对齐状态 (无视动画偏移量的影响)
-         * <br />set a boolean value that indicates whether the object is aligned center (ignore the offsets of animations)
-         * @param value
+         * set a boolean value that indicates whether the object is aligned center (ignore the offsets of animations)
          */
         setForceCenter(value: boolean);
 
         /**
          * 检测对象与坐标点的碰撞
-         * <br />collision detection between the object and a point
-         * @param x
-         * @param y
-         * @returns {boolean}
+         * collision detection between the object and a point
          */
         hitTestPoint(x: number, y: number): boolean;
 
         /**
          * 检测对象与对象的碰撞
-         * <br />collision detection between 2 objects
-         * @param child
-         * @returns {boolean}
+         * collision detection between 2 objects
          * TODO: child is a DisplayObject?
          */
         hitTestObject(child): boolean;
 
         /**
          * 检测对象与范围的碰撞
-         * <br />collision detection between the object and an area
-         * @param x
-         * @param y
-         * @param radius
-         * @returns {boolean}
+         * collision detection between the object and an area
          */
         hitTestRoundness(x: number, y: number, radius: number): boolean;
 
@@ -457,47 +412,41 @@ declare module ss2d {
 
     /**
      * 帧缓存类 用于后处理的必须类，使用它可以把当前屏幕的内容拷贝到一张特定的纹理上，用于做后期的屏幕特效。
-     * <br />演示地址：http://sirius2d.com/demos/d_37/
-     * @class
+     * 演示地址：http://sirius2d.com/demos/d_37/
      */
     class FrameBuffer {
         /**
          * 设置显示缓存
-         * <br />display the frame buffer
-         * @param {boolean}
+         * display the frame buffer
          * 
          * TODO: value type?
          */
-        setDisplay(value): boolean;
+        setDisplay(value:Scene);
 
         /**
          * 获取帧缓存
-         * <br />get frame buffer
-         * @param {boolean}
+         * get frame buffer
+         * TODO: type?
          */
-        getFrameBuff(): boolean;
+        getFrameBuff(): Scene;
 
         /**
          * 是否清理画面
-         * <br />set a boolean value that indicates whether the scene is cleaned up
-         * @param value
+         * set a boolean value that indicates whether the scene is cleaned up
          */
         isClear(value: boolean);
 
         /**
          * 添加到显示列表
-         * <br />add object to the scene list
-         * @param {ss2d.Scene} child 显示对象
+         * add object to the scene list
          */
         addChild(child: Scene);
 
         /**
          * 从显示列表删除显示对象
-         * <br />remove object to the scene list
-         * @param {ss2d.Scene} child 显示对象
+         * remove object to the scene list
          */
         removeChild(child: Scene);
-
     }
 
 
@@ -505,9 +454,8 @@ declare module ss2d {
 
     /**
      * MovieClip 影片剪辑类,不建议多用,一般用于显示测试,后处理,单个大背景,如果显示数量很多建议用Scene
-     * <br />movie clip class It's used for test or post-processing with a single image  Use scene class for more elements
-     * <br /> 演示地址:http://sirius2d.com/demos/d_10/
-     * @class
+     * movie clip class It's used for test or post-processing with a single image  Use scene class for more elements
+     * 演示地址:http://sirius2d.com/demos/d_10/
      */
     class MovieClip extends Scene {
 
@@ -515,19 +463,13 @@ declare module ss2d {
 
         /**
          * 检测对象与对象的碰撞
-         * <br />collision detection between 2 objects
-         * @param child
-         * @returns {boolean}
+         * collision detection between 2 objects
          */
         hitTestObject(child): boolean;
 
         /**
         * 检测对象与范围的碰撞
-        * <br />collision detection between the object and an area
-        * @param x
-        * @param y
-        * @param radius
-        * @returns {boolean}
+        * collision detection between the object and an area
         */
         hitTestRoundness(x: number, y: number, radius: number): boolean;
 
@@ -535,170 +477,147 @@ declare module ss2d {
 
         /**
          * 设置纹理ID
-         * <br />set texture ID
-         * @param value
+         * set texture ID
          */
         setTextureID(value: number);
 
         /**
          * 获取纹理ID
-         * <br />get texture ID
-         * @return {Number}
+         * get texture ID
          */
         getTextureID(): number;
 
         /**
          * 设置纹理片段名称
-         * <br />set tile name
-         * @param name {String}
+         * set tile name
          */
         setTileName(name: string);
 
         /**
          * 设置纹理片段ID
-         * <br />set tile ID
-         * @param id {number}
+         * set tile ID
          */
         setTileId(id: number);
 
         /**
          * 获取动画当前播放帧
-         * <br />get the current frame of the animation
-         * @returns {number}
+         * get the current frame of the animation
          */
         getCurrentFrame(): number;
 
         /**
          * 获取动画片段总长度
-         * <br />get the length of the animation
-         * @returns {number}
+         * get the length of the animation
          */
         getTotalFrame(): number;
 
 
         /**
          * 设置纹理片段X坐标偏移位置
-         * <br />set tile offset X
-         * @param value {number}
+         * set tile offset X
          */
         setTileXOffset(value: number);
 
         /**
          * 获取纹理片段X坐标偏移位置
-         * <br />get tile offset X
-         * @param value {number}
+         * get tile offset X
          */
         getTileXOffset(): number;
 
         /**
          * 设置纹理片段Y坐标偏移位置
-         * <br />set tile offset Y
-         * @param value {number}
+         * set tile offset Y
          */
         setTileYOffset(value: number);
 
         /**
          * 获取纹理片段Y坐标偏移位置
-         * <br />get tile offset Y
-         * @param value {number}
+         * get tile offset Y
          */
         getTileYOffset(): number;
 
         /**
          * 设置纹理片段宽度偏移位置
-         * <br />set tile width offset
-         * @param value {number}
+         * set tile width offset
          */
         setTileWidthOffset(value: number);
 
         /**
          * 获取纹理片段宽度偏移位置
-         * <br />get tile width offset
-         * @param value {number}
+         * get tile width offset
          */
         getTileWidthOffset(): number;
 
         /**
          * 设置纹理片段高度偏移位置
-         * <br />set tile height offset
-         * @param value {number}
+         * set tile height offset
          */
         setTileHeightOffset(value: number);
 
         /**
          * 获取纹理片段高度偏移位置
-         * <br />get tile height offset
-         * @param value {number}
+         * get tile height offset
          */
         getTileHeightOffset(): number;
 
         /**
          * 指示动画播放的帧率.
-         * <br />set FPS of the animation
-         * @param	frame 动画播放的帧率.
+         * set FPS of the animation
          */
         setAnimationSpeed(frame: number);
 
         /**
          * 设置顶点位置 (index: 0-左上，1-左下，2-右上，3-右下)
-         * <br />set vertexes pos (index: 0-top left, 1-bottom left, 2-top right, 3-bottom right)
-         * @param index
-         * @param x
-         * @param y
+         * set vertexes pos (index: 0-top left, 1-bottom left, 2-top right, 3-bottom right)
          */
         setIndexVertext(index: number, x: number, y: number);
 
         /**
          * 获取顶点位置 (index: 0-左上，1-左下，2-右上，3-右下)
-         * <br />get vertexes pos (index: 0-top left, 1-bottom left, 2-top right, 3-bottom right)
-         * @param index
+         * get vertexes pos (index: 0-top left, 1-bottom left, 2-top right, 3-bottom right)
          */
         getIndexVertext(index): Point;
 
         /**
          * 获得顶点数据
-         * <br />index to the right vertex
-         * @param index
+         * index to the right vertex
          */
         getVertex(index: number): Point;
 
         /**
          * 设置是否循环播放
-         * <br />loop animation or not
-         * @param boolean value
+         *loop animation or not
          */
         loop(value: boolean);
 
         /**
          * 播放动画
-         * <br />play animation
+         * play animation
          */
         play();
 
         /**
          * 停止播放动画
-         * <br />stop animation
+         * stop animation
          */
         stop();
 
 
         /**
          * 跳转到指定的帧并且播放动画
-         * <br />skip to a frame and play the animation
-         * @param value
+         * skip to a frame and play the animation
          */
         gotoAndPlay();
 
         /**
          * 跳转到指定的帧并停止动画
-         * <br />skip to a frame and stop the animation
-         * @param value
+         * skip to a frame and stop the animation
          */
         gotoAndStop(value: number);
 
         /**
          * 添加帧脚本
-         * <br />add frame script
+         * add frame script
          * 
          * TODO: type?
          */
@@ -706,34 +625,31 @@ declare module ss2d {
 
         /**
          * 删除帧脚本
-         * <br />delete frame script
+         * delete frame script
          */
         removeFrameScript(value);
 
         /**
          * 删除所有帧函数
-         * <br />delete all frame scripts
+         * delete all frame scripts
          */
         removeAllFrameScript();
 
         /**
          * 设置是否倒播动画
-         * <br />set a boolean value that indicates whether the animation is rolled back
-         * @param boolean value
+         * set a boolean value that indicates whether the animation is rolled back
          */
         rollbackAnimation(value: boolean);
 
         /**
          * 获取对象中心对齐状态
          * get a boolean value that indicates whether the object is aligned center
-         * @returns {*|boolean}
          */
         getCenter(): boolean;
 
         /**
          * 设置对象中心对齐状态
          * make the object align center
-         * @param value
          */
         setCenter(value: boolean);
 
@@ -746,22 +662,20 @@ declare module ss2d {
 
         /**
          * 获得绝对中心点
-         * <br />get the absolute center point
+         * get the absolute center point
          */
         absCentre(): Point;
 
         /**
          * 设置融合矩阵
-         * <br />set transform matrix
-         * @param value
+         * set transform matrix
          * TODO: matrix?
          */
         setTransform(value);
 
         /**
          * 获取融合矩阵
-         * <br />get transform matrix
-         * @returns {*}
+         * get transform matrix
          * 
          * TODO: type?
          */
@@ -782,7 +696,6 @@ declare module ss2d {
         /**
          * 设置对象颜色值
          * set the color of the object
-         * @param value
          */
         setColor(value);
 
@@ -791,10 +704,9 @@ declare module ss2d {
 
         //TODO: make an interface to share method with DisplayObject
         /**
-  * 获取对象的红色通道值
-  * <br />get red channel of the object
-  * @returns {number}
-  */
+          * 获取对象的红色通道值
+          * get red channel of the object
+          */
         getR(): number;
         setR(value: number);
         getG(): number;
@@ -817,50 +729,42 @@ declare module ss2d {
         setScaleY(value: number);
         /**
         * 获取对象的X轴倾斜值
-        * <br />get skew X of the object
-        * @returns {number}
+        * get skew X of the object
         */
         getSkewX(): number;
         /**
         * 设置对象的X轴倾斜值
-        * <br />set skew X of the object
-        * @param value
+        *set skew X of the object
         */
         setSkewX(value: number);
         /**
          * 获取对象的Y轴倾斜值
-         * <br />get skew Y of the object
-         * @returns {number}
+         * get skew Y of the object
          */
         getSkewY(): number;
         /**
          * 设置对象的Y轴倾斜值
-         * <br />set skew Y of the object
-         * @param value
+         * set skew Y of the object
          */
         setSkewY(value: number);
         /**
          * 获取对象的X轴偏移位置
-         * <br />get pivot X of the object
-         * @returns {number}
+         * get pivot X of the object
          */
         getPivotX(): number;
         /**
         * 设置对象的X轴偏移位置
-        * <br />set pivot X of the object
-        * @param value
+        * set pivot X of the object
         */
         setPivotX(value: number);
         /**
          * 获取对象的Y轴偏移量
-         * <br />get pivot Y of the object
-         * @returns {number}
+         * get pivot Y of the object
          */
         getPivotY(): number;
         /**
          * 设置对象的Y轴偏移量
-         * <br />set pivot Y of the object
-         * @param value
+         * set pivot Y of the object
          */
         setPivotY(value: number);
         getRotation(): number;
@@ -871,53 +775,45 @@ declare module ss2d {
         setVisible(value: boolean);
         /**
         * 获取对象的刷新状态
-        * <br />get a boolean value that indicates whether the object is redrawn
-        * @returns {boolean}
+        * get a boolean value that indicates whether the object is redrawn
         */
         getIsRedraw(): boolean;
         /**
          * 设置对象的刷新状态
-         * <br />set a boolean value that indicates whether the object is redrawn
-         * @param value
+         * set a boolean value that indicates whether the object is redrawn
          */
         setIsRedraw(value: boolean);
         getParent();
         setParent(value);
         /**
         * 获取鼠标监测状态
-        * <br />get a boolean value that indicates whether the mouse event is listened
-        * @returns {boolean}
+        * get a boolean value that indicates whether the mouse event is listened
         */
         getMouseEnabled(): boolean;
         /**
-            * 设置鼠标监测状态
-            * <br />set a boolean value that indicates whether the mouse event is listened
-            * @param value
-            */
+        * 设置鼠标监测状态
+        * set a boolean value that indicates whether the mouse event is listened
+        */
         setMouseEnabled(value: boolean);
         /**
          * 获取用户数据
-         * <br />get the user data
-         * @returns {null}
+         * get the user data
          */
         getUserData();
         /**
          * 设置用户数据
-         * <br />set the user data
-         * @param value
+         * set the user data
          */
         setUserData();
 
         /**
          * 获取对象强制中心对齐状态 (无视动画偏移量的影响)
-         * <br />get a boolean value that indicates whether the object is aligned center (ignore the offsets of animations)
-         * @returns {boolean}
+         * get a boolean value that indicates whether the object is aligned center (ignore the offsets of animations)
          */
         getForceCenter(): boolean;
         /**
          * 设置对象强制中心对齐状态 (无视动画偏移量的影响)
-         * <br />set a boolean value that indicates whether the object is aligned center (ignore the offsets of animations)
-         * @param value
+         * set a boolean value that indicates whether the object is aligned center (ignore the offsets of animations)
          */
         setForceCenter(value: boolean);
 
@@ -2359,9 +2255,899 @@ declare module ss2d {
         constructor(type, bubbles: boolean, cancelable: boolean);
     }
 
+
+    //loader folder
+    //TODO: needed?
+
+    class AbstractLoader extends EventDispatcher {
+        loader: boolean;
+        canceled: boolean;
+        progress: number;
+
+        getItem();
+        load();
+        close();
+        buildPath(src, data);
+    }
+
+    /**
+     * 队列加载器 用于加载多个游戏用资源。
+     * <br/>演示地址:http://sirius2d.com/demos/d_1/
+     * @type {Class}
+     */
+    class LoadQueue extends AbstractLoader {
+        constructor(useXHR: boolean, basePath, crossOrigin);
+
+        removeAll();
+        remove(idsOrUrls);
+        reset();
+        installPlugin(plugin);
+        loadFile(file, loadNow: boolean, basePath);
+
+        /**
+         * 载入加载队列
+         * @param manifest 加载队列
+         * @param loadNow
+         * @param basePath
+         */
+        loadManifest(manifest, loadNow: boolean, basePath);
+
+        load();
+
+        getResult(value, rawResult);
+        setPaused(value: boolean);
+        close();
+
+    }
+
+    class XHRLoader extends AbstractLoader {
+        constructor(item, crossOrigin);
+
+        /**
+         * Look up the loaded result.
+         * @method getResult
+         * @param {Boolean} [rawResult=false] Return a raw result instead of a formatted result. This applies to content
+         * loaded via XHR such as scripts, XML, CSS, and Images. If there is no raw result, the formatted result will be
+         * returned instead.
+         * @return {Object} A result object containing the content that was loaded, such as:
+         * <ul>
+         *      <li>An image tag (&lt;image /&gt;) for images</li>
+         *      <li>A script tag for JavaScript (&lt;script /&gt;). Note that scripts loaded with tags may be added to the
+         *      HTML head.</li>
+         *      <li>A style tag for CSS (&lt;style /&gt;)</li>
+         *      <li>Raw text for TEXT</li>
+         *      <li>A formatted JavaScript object defined by JSON</li>
+         *      <li>An XML document</li>
+         *      <li>An binary arraybuffer loaded by XHR</li>
+         * </ul>
+         * Note that if a raw result is requested, but not found, the result will be returned instead.
+         */
+        getResult(rawResult: boolean);
+
+        /**
+         * Get all the response headers from the XmlHttpRequest.
+         *
+         * <strong>From the docs:</strong> Return all the HTTP headers, excluding headers that are a case-insensitive match
+         * for Set-Cookie or Set-Cookie2, as a single string, with each header line separated by a U+000D CR U+000A LF pair,
+         * excluding the status line, and with each header name and header value separated by a U+003A COLON U+0020 SPACE
+         * pair.
+         * @method getAllResponseHeaders
+         * @return {String}
+         * @since 0.4.1
+         */
+        getAllResponseHeaders(): string;
+
+
+        /**
+         * Get a specific response header from the XmlHttpRequest.
+         *
+         * <strong>From the docs:</strong> Returns the header field value from the response of which the field name matches
+         * header, unless the field name is Set-Cookie or Set-Cookie2.
+         * @method getResponseHeader
+         * @param {String} header The header name to retrieve.
+         * @return {String}
+         * @since 0.4.1
+         */
+        getResponseHeader(header: string): string;
+    }
+
+
+
+    // message folder
+    // TODO: needed?
+
+    class Message {
+        userData;
+        type;
+    }
+
+    class Broadcast {
+        static send(type, message: Message);
+
+    }
+
+    class MessageData {
+        execute(type, message: Message);
+
+        /**
+         * 检测消息列表是否存在这条消息
+         * @return
+         */
+        getEvents(type): boolean;
+
+        addEventMessage(type, fun: Function);
+        disposeEvent();
+        removeEventMessage(type);
+    }
+
+    class MessageList {
+        static getInstance(): MessageList;
+
+        removeEventObject(e);
+        addEventObject(e);
+    }
+
+
+    // particle folder
+
+    // TODO: needed?
+    class ParticleCPU {
+        constructor(v_quad);
+        paint();
+        show();
+        clear();
+    }
+
+    /**
+     * ParticleEmittersCPU 粒子发射器,可用于发射任何Quad,通常在粒子，幻影，残影时用到。
+     * <br /> 演示地址:http://sirius2d.com/demos/d_32/
+     * @class
+     */
+    class ParticleEmittersCPU {
+        run();
+
+        //TODO:type?
+        constructor(v_scene: Scene, v_value);
+
+        paint();
+        //TODO:type?
+        sendParticle(x, y, v_particleStyle: ParticleStyle);
+    }
+
+    /**
+ * ParticleStyle 粒子样式表，用于处理粒子发射时的各项参数
+ * <br /> 演示地址:http://sirius2d.com/demos/d_32/
+ * @class
+ */
+    class ParticleStyle {
+        loop: boolean;
+        /**
+         * 设置动画片段名称
+         */
+        tileName: string;
+        /**
+         * 跳转到第几帧
+         */
+        gotoFrame: number;
+
+
+        /*
+         *粒子X随机范围
+         */
+        scopeX: number;
+
+        /**
+         * 粒子Y随机范围
+         */
+        scopeY: number;
+
+        /**
+         * 粒子的X轴比例
+         */
+        scaleX: number;
+
+        /**
+         * 粒子的Y轴比例
+         */
+        scaleY: number;
+
+        /**
+         * 粒子X比例缩放值
+         */
+        scaleXValue: number;
+
+        /**
+         * 粒子Y比例缩放值
+         */
+        scaleYValue: number;
+
+        /**
+         * 粒子透明度
+         */
+        a: number;
+
+        /**
+         * 粒子红色通道值
+         */
+        r: number;
+
+        /**
+         * 粒子绿色通道值
+         */
+        g: number;
+
+        /**
+         * 粒子蓝色通道值
+         */
+        b: number;
+
+        /**
+         * 粒子角度递增值
+         */
+        angleValue: number;
+
+        /**
+         * 粒子初始化角度
+         */
+        rotationValue: number;
+
+        /**
+         * 粒子随机角度
+         */
+        rotationRandom: number;
+
+        /**
+         * 粒子运动速度
+         */
+        speedValue: number;
+
+        /**
+         * 粒子初始化透明度
+         */
+        alphaValue: number;
+
+        /**
+         * 粒子递增红色通道值
+         */
+        addR: number;
+        /**
+         * 粒子递增绿色通道值
+         */
+        addG: number;
+
+        /**
+         * 粒子递增蓝色通道值
+         */
+        addB: number;
+
+        /**
+         * 粒子递增透明度
+         */
+        addA: number;
+
+    }
+
     //shader folder
 
+    /**
+     * ShaderBasis 基础效果着色器
+     * @class
+     */
+
     interface ShaderAbstract { }
+
+
+    /**
+     * ShaderBlur 模糊效果着色器
+     * @class
+     */
+    class ShaderBlur implements ShaderAbstract {
+        /**
+         * X轴模糊阈值
+         */
+        blurX: number;
+
+        /**
+         * Y轴模糊阈值
+         */
+        blurY: number;
+    }
+
+    /**
+     * ShaderFigure 抽象效果着色器
+     * @class
+     */
+    class ShaderFigure implements ShaderAbstract {
+        time: number;
+    }
+
+    /**
+     * ShaderFlame 火焰效果着色器
+     * @class
+     */
+    class ShaderFlame implements ShaderAbstract { }
+
+    /**
+     * ShaderFractal 不规则上色效果着色器
+     * @class
+     */
+    class ShaderFractal implements ShaderAbstract {
+        time: number;
+    }
+
+    /**
+    * ShaderGlass 玻璃效果着色器
+    * @class
+    */
+    class ShaderGlass implements ShaderAbstract {
+        /**
+         * 动画时间步长
+         */
+        timer: number;
+        /**
+        * 动画运动速度
+        */
+        speed: number;
+
+        /**
+         * 动画运动频率
+         */
+        frequency: number;
+
+        /**
+         *动画运行分辨率
+         */
+        resolution: number;
+
+        /**
+         * 动画噪点阈值
+         */
+        noisy: number;
+    }
+
+    /**
+     * ShaderGLSL 默认着色器
+     * @class
+     */
+    class ShaderGLSL implements ShaderAbstract { }
+
+    /**
+     * ShaderGray 灰度效果着色器
+     * @class
+     */
+    class ShaderGray implements ShaderAbstract { }
+
+    /**
+      * ShaderHdr HDR效果着色器
+      * @class
+      */
+    class ShaderHdr implements ShaderAbstract {
+        /**
+         * 饱和度阈值
+         */
+        mLuminance: number;
+    }
+
+    /**
+     * ShaderHeartbeat 跳动效果着色器
+     * @class
+     */
+    class ShaderHeartbeat implements ShaderAbstract {
+        time: number;
+    }
+
+    /**
+     * ShaderJoint 纹理拼接着色器
+     * @class
+     */
+    class ShaderJoint implements ShaderAbstract { }
+
+    /**
+     * ShaderLaser 激光效果着色器
+     * @class
+     */
+    class ShaderLaser implements ShaderAbstract {
+        time: number;
+    }
+
+    /**
+     * ShaderLight 2D灯光效果着色器
+     * @class
+     */
+    class ShaderLight implements ShaderAbstract {
+        lightX: number;
+        lightY: number;
+        /**
+         * 灯光强度
+         */
+        lightScale: number;
+    }
+    /**
+     * ShaderMosaic 马赛克效果着色器
+     * @class
+     */
+    class ShaderMosaic implements ShaderAbstract {
+        /**
+         * 噪点阈值
+         */
+        noisy: number;
+    }
+
+    /**
+     * ShaderNet 网状效果着色器
+     * @class
+     */
+    class ShaderNet implements ShaderAbstract {
+        time: number;
+    }
+
+    /**
+     * ShaderQuick 快速渲染着色器
+     * @class
+     */
+    class ShaderQuick implements ShaderAbstract { }
+
+    /**
+     * ShaderRelief 浮雕效果着色器
+     * @class
+     */
+    class ShaderRelief implements ShaderAbstract { }
+
+
+    // sound folder
+
+
+    /**
+     * 音效控制器
+     * @class
+     */
+    class SoundControl {
+        /**
+        * 原始音量
+        * @type {number}
+        * @default 0
+        */
+        originalVolume: number;
+
+        /**
+         * 音效是否正在播放
+         * @type {boolean}
+         * @default false
+         */
+        isPlaying: boolean;
+
+        /**
+         * 获取音效音量,需要重载
+         * @returns {number}
+         */
+        getVolume(): number;
+
+        /**
+         * 设置音效音量,需要重载
+         * @param value
+         */
+        setVolume(value: number);
+
+        /**
+         * 播放
+         * @param loops 循环次数
+         * @param delay 延迟播放时间
+         * @returns {*}
+         */
+        play(loops: number, delay: number);
+
+        /**
+         * 暂停
+         * @returns {*}
+         */
+        pause();
+
+        /**
+         * 停止
+         * @returns {*}
+         */
+        stop();
+
+        /**
+         * 静音
+         * @returns {*}
+         */
+        mute();
+
+        /**
+         * 取消静音
+         * @returns {*}
+         */
+        unmute();
+
+        /**
+         * 静音开关
+         */
+        toggleMute();
+
+        /**
+         * 播放开关
+         */
+        togglePlay();
+
+        /**
+         * 添加音效播放回调函数
+         * @param callBack
+         * @returns {*}
+         */
+        onPlay(callBack: Function);
+
+        /**
+         * 添加音效暂停回调函数
+         * @param callBack
+         * @returns {*}
+         */
+        onPause(callBack: Function);
+
+        /**
+         * 添加音效停止回调函数
+         * @param callBack
+         * @returns {*}
+         */
+        onStop(callBack: Function);
+
+        /**
+         * 添加取消当前音效回调函数
+         * @param callBack
+         * @returns {*}
+         */
+        onCancel(callBack: Function);
+
+        /**
+         * 添加静音回调函数
+         * @param callBack
+         * @returns {*}
+         */
+        onMute(callBack: Function);
+
+        /**
+         * 添加取消静音回调函数
+         * @param callBack
+         * @returns {*}
+         */
+        onUnMute(callBack: Function);
+
+        /**
+         * 添加音效播放完毕回调函数
+         * @param callBack
+         * @returns {*}
+         */
+        onComplete(callBack: Function);
+
+        /**
+         * 添加音效播放出错回调函数
+         * @param callBack
+         * @returns {*}
+         */
+        onError(callBack: Function);
+        dispose();
+
+    }
+
+    /**
+     * 音效元素
+     * @class
+     * @param {Audio} sound 声音文件
+     */
+    class SoundItem extends SoundControl {
+        /**
+            * 声音文件
+            * @type {Audio}
+            * TODO:AudioElement?
+            */
+        sound;
+
+        /**
+         * 播放声音的循环次数
+         * @type {number}
+         * @default 0
+         */
+        loops: number;
+
+        /**
+         * 播放声音的延迟时间
+         * @type {number}
+         * @default 0
+         */
+        delay: number;
+
+        /**
+         * 播放声音的延迟时间的计时器
+         * @private
+         */
+        timeout: number;
+
+        /**
+         * 声音播放当前位置
+         * @type {number}
+         * @default 0
+         */
+        lastPosition: number;
+
+        /**
+         * 声音文件的地址
+         * @type {string}
+         * @default null
+         */
+        url: string;
+
+        constructor(sound);
+
+
+        /**
+         * 获取音频总长度
+         * @returns {*}
+         */
+        getLength(): number;
+
+        /**
+         * 获取音频当前播放位置
+         * @returns {*}
+         */
+        getPosition(): number;
+
+        /**
+         * 设置音频当前播放位置
+         * @param value
+         */
+        setPosition(value: number);
+
+        /**
+         * 获取音频当前播放位置的百分比
+         * @returns {number}
+         */
+        getPositionPercent(): number;
+
+        /**
+         * 设置音频当前播放位置的百分比
+         * @param value
+         */
+        setPositionPercent(value: number);
+
+        /**
+         * 加载
+         * @param {String} path 音效文件路径
+         * @returns {*}
+         */
+        load(path: string): SoundItem;
+
+        clone(): SoundItem;
+    }
+
+    /**
+     * 音效管理类
+     * @class
+     * @param {string} id 当前音效管理器的ID
+     * @example
+     * //新建一个声音管理器
+     * var sm = new ss2d.SoundManager();
+     * //在音乐群组中添加一个声音test_sound
+     * sm.group("music").add("test_music").load("assets/audio/test_music.mp3");
+     * //在音效群组中添加一个声音test_sound
+     * sm.group("sound").add("test_sound").load("assets/audio/test_sound.mp3");
+     * //播放音乐
+     * sm.group("music").item("test_music").play();
+     * //播放音效
+     * sm.group("sound").item("test_sound").play();
+     *
+     */
+    class SoundManager extends SoundItem {
+        constructor(id: string);
+
+        /**
+         * 添加一个音效文件
+         * @param {string} id 该声音文件的ID
+         * @param {Audio} value 声音文件
+         * @returns {ss2d.SoundItem} 返回声音列表内的一个声音元素
+         * 
+         * TODO: AudioElement?
+         */
+        add(id: string, value): SoundItem;
+
+        /**
+         * 根据ID移除声音管理器中的声音元素
+         * @param {string} id 被移除的声音元素ID
+         * @returns {ss2d.SoundManager} 返回当前声音管理
+         */
+        remove(id: string): SoundManager;
+
+        /**
+          * 根据ID获取当前声音管理器中的声音元素
+          * @param {string} id 需要获取的声音元素ID
+          * @returns {ss2d.SoundItem} 返回一个声音元素
+          */
+        item(id: string): SoundItem;
+
+        /**
+         * 检测声音管理器中是否存在指定ID的声音元素
+         * @param {string} id 声音元素ID
+         * @returns {boolean}
+         */
+        match(id: string): boolean;
+
+        /**
+         * 当前声音管理器中的声音文件个数
+         * @returns {number}
+         */
+        length(): number;
+    }
+
+    // system folder
+
+
+    class Capabilities {
+        static pixelRatio: number;
+        static viewport: { width: number; height: number };
+        static screen: { width: number; height: number };
+        static iPhone: boolean;
+        static iPhone4: boolean;
+        static iPad: boolean;
+        static android: boolean;
+        static IOS: boolean;
+        static mobile: boolean;
+    }
+
+    enum KEY {
+        'MOUSE1',
+        'MOUSE2',
+        'MWHEEL_UP',
+        'MWHEEL_DOWN',
+        'BACKSPACE',
+        'TAB',
+        'ENTER',
+        'PAUSE',
+        'CAPS',
+        'ESC',
+        'SPACE',
+        'PAGE_UP',
+        'PAGE_DOWN',
+        'END',
+        'HOME',
+        'LEFT_ARROW',
+        'UP_ARROW',
+        'RIGHT_ARROW',
+        'DOWN_ARROW',
+        'INSERT',
+        'DELETE',
+        '_0',
+        '_1',
+        '_2',
+        '_3',
+        '_4',
+        '_5',
+        '_6',
+        '_7',
+        '_8',
+        '_9',
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
+        'NUMPAD_0',
+        'NUMPAD_1',
+        'NUMPAD_2',
+        'NUMPAD_3',
+        'NUMPAD_4',
+        'NUMPAD_5',
+        'NUMPAD_6',
+        'NUMPAD_7',
+        'NUMPAD_8',
+        'NUMPAD_9',
+        'MULTIPLY',
+        'ADD',
+        'SUBSTRACT',
+        'DECIMAL',
+        'DIVIDE',
+        'F1',
+        'F2',
+        'F3',
+        'F4',
+        'F5',
+        'F6',
+        'F7',
+        'F8',
+        'F9',
+        'F10',
+        'F11',
+        'F12',
+        'SHIFT',
+        'CTRL',
+        'ALT',
+        'PLUS',
+        'COMMA',
+        'MINUS',
+        'PERIOD',
+    }
+
+    //TODO: needed?
+    class Input {
+
+    }
+
+
+    // util folder
+
+
+    class ColorUtil {
+        static hexToRGB(hex: number): { r: number; g: number; b: number };
+        static RGBToHex(rgb: { r: number; g: number; b: number }): number;
+
+    }
+
+
+    class HitTestUtil {
+
+        /**
+         * 点与矩形,矩形的坐标点在图像的中心位置时
+         * @param point
+         * @param rectangle
+         * @returns {boolean}
+         */
+        static hitTestPoint(point: Point, rectangle: Rectangle): boolean;
+
+        /**
+         * 矩形与矩形的碰撞
+         * @param rectA
+         * @param rectB
+         */
+        hitTestRectangle(rectA: Rectangle, rectB: Rectangle): boolean;
+
+        /**
+         * 矩形与矩形的碰撞
+         * @param point
+         * @param roundness
+         * 
+         * TODO:type?
+         */
+        hitTestRoundness(point: Point, roundness: { x: number; y: number; radius: number }): boolean;
+
+        /**
+         * 面积检测算法
+         * @param p1
+         * @param p2
+         * @param p3
+         */
+        hitTrianglePoint(p1: Point, p2: Point, p3: Point): boolean;
+
+        /**
+         * 顶点碰撞检测
+         * p1,p2,p3 为范围点
+         * p4是碰撞点。
+         * @param p1
+         * @param p2
+         * @param p3
+         * @param p4
+         */
+        hitPoint(p1: Point, p2: Point, p3: Point, p4: Point): boolean;
+
+    }
 }
 
 declare class ss2d {
