@@ -2170,7 +2170,7 @@ declare module ss2d {
 
         load();
 
-        getResult(value, rawResult?);
+        getResult(value:string, rawResult?);
         setPaused(value: boolean);
         close();
     }

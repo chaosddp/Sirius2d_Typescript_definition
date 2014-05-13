@@ -1,15 +1,14 @@
 ﻿/// <reference path="../../sirius2d.d.ts" />
-
-module demo {
-
-    export declare class Manifest {
-        src: string;
-        id: string;
-    }
-
-    export class SimpleScene {
-
-        constructor() {
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var demo;
+(function (demo) {
+    var SimpleScene = (function () {
+        function SimpleScene() {
             this._manifest = [];
             this._assets = new ss2d.LoadQueue(true);
             this._loaded = 0;
@@ -20,55 +19,56 @@ module demo {
             this._assets.on("fileload", this["handleFile"]);
             this._assets.on("progress", this["handleProgress"]);
         }
+        SimpleScene.prototype.setAssets = function () {
+        };
 
-        _manifest: Array<Manifest>;
-        _loaded: number;
-        _stage: ss2d.Stage2D;
-        _assets: ss2d.LoadQueue;
-        _scene: ss2d.Scene;
-
-        setAssets() {}
-
-        loadAssets() {
+        SimpleScene.prototype.loadAssets = function () {
             this._assets.loadManifest(this._manifest);
-        }
+        };
 
-        onFileProgress(e) { }
+        SimpleScene.prototype.onFileProgress = function (e) {
+        };
 
         // this can be override to write own logic
-        onFileLoaded(e) {
+        SimpleScene.prototype.onFileLoaded = function (e) {
             this._loaded++;
 
             if (this._loaded == this._manifest.length) {
                 this.init();
             }
-        }
+        };
 
-        update() { }
+        SimpleScene.prototype.update = function () {
+        };
 
-        init() { }
+        SimpleScene.prototype.init = function () {
+        };
 
-        remove() { }
+        SimpleScene.prototype.remove = function () {
+        };
 
-        start() {
+        SimpleScene.prototype.start = function () {
             this._loaded = 0;
             this.setAssets();
             this.loadAssets();
+        };
+        return SimpleScene;
+    })();
+    demo.SimpleScene = SimpleScene;
+
+    var TestScene01 = (function (_super) {
+        __extends(TestScene01, _super);
+        function TestScene01() {
+            _super.apply(this, arguments);
         }
-    }
-
-    export class TestScene01 extends SimpleScene {
-
-        mc: ss2d.MovieClip;
-
-        setAssets() {
+        TestScene01.prototype.setAssets = function () {
             this._manifest.push({
                 src: "images/logo.png",
                 id: "logo"
             });
-        }
+        };
 
-        init() {
+        TestScene01.prototype.init = function () {
             var texture = new ss2d.Texture(this._assets.getResult("logo"));
 
             this.mc = new ss2d.MovieClip(texture);
@@ -79,15 +79,21 @@ module demo {
 
             this.mc.setX(ss2d.Stage2D.stageWidth / 2);
             this.mc.setY(ss2d.Stage2D.stageHeight / 2);
-        }
+        };
 
-        remove() {
+        TestScene01.prototype.remove = function () {
             ss2d.stage.removeChild(this.mc);
-        }
-    }
+        };
+        return TestScene01;
+    })(SimpleScene);
+    demo.TestScene01 = TestScene01;
 
-    export class TestScene02 extends TestScene01 {
-        init() {
+    var TestScene02 = (function (_super) {
+        __extends(TestScene02, _super);
+        function TestScene02() {
+            _super.apply(this, arguments);
+        }
+        TestScene02.prototype.init = function () {
             var texture = new ss2d.Texture(this._assets.getResult("logo"));
 
             this.mc = new ss2d.MovieClip(texture);
@@ -100,11 +106,17 @@ module demo {
             this.mc.setSkewX(.5);
             this.mc.setRotation(90);
             ss2d.stage.addChild(this.mc);
-        }
-    }
+        };
+        return TestScene02;
+    })(TestScene01);
+    demo.TestScene02 = TestScene02;
 
-    export class TestScene03 extends TestScene01 {
-        init() {
+    var TestScene03 = (function (_super) {
+        __extends(TestScene03, _super);
+        function TestScene03() {
+            _super.apply(this, arguments);
+        }
+        TestScene03.prototype.init = function () {
             var texture = new ss2d.Texture(this._assets.getResult("logo"));
             this.mc = new ss2d.MovieClip(texture);
 
@@ -130,24 +142,21 @@ module demo {
             mc.setSkewX(.5);
             mc.setRotation(90);
             ss2d.stage.addChild(mc);
-        }
-    }
+        };
+        return TestScene03;
+    })(TestScene01);
+    demo.TestScene03 = TestScene03;
 
-    export class SimpleGame {
-        stage: ss2d.Stage2D;
-        scenes: Map<string, SimpleScene>;
-        currentScene: SimpleScene;
-
-        constructor(canvasId: string, width: number, height: number) {
+    var SimpleGame = (function () {
+        function SimpleGame(canvasId, width, height) {
             this.stage = new ss2d.Stage2D(canvasId, width, height);
-            this.scenes = new Map<string, SimpleScene>();
+            this.scenes = new Map();
         }
-
-        add(key: string, scene: SimpleScene) {
+        SimpleGame.prototype.add = function (key, scene) {
             this.scenes.set(key, scene);
-        }
+        };
 
-        start(key: string) {
+        SimpleGame.prototype.start = function (key) {
             if (this.scenes.has(key)) {
                 if (this.currentScene != null) {
                     this.currentScene.remove();
@@ -156,16 +165,14 @@ module demo {
                 this.currentScene = this.scenes.get(key);
                 this.currentScene.start();
             }
-        }
+        };
+        return SimpleGame;
+    })();
+    demo.SimpleGame = SimpleGame;
+})(demo || (demo = {}));
 
-    }
-
-}
-
-window.onload = () => {
-
+window.onload = function () {
     //new demo.SimpleMain("cv", 800, 600);
-
     var game = new demo.SimpleGame("cv", 800, 600);
 
     game.add("test", new demo.TestScene01());
@@ -173,5 +180,5 @@ window.onload = () => {
     game.add("test03", new demo.TestScene03());
 
     game.start("test03");
-
 };
+//# sourceMappingURL=app.js.map
