@@ -1,6 +1,5 @@
 ﻿
-declare function Class(...params)
-
+declare function Class(...params);
 
 
 declare module ss2d {
@@ -2046,7 +2045,7 @@ declare module ss2d {
          * @param listener 事件执行函数
          * @param useCapture 事件执行循序
          */
-        removeEventListener(type: string, listener: Function, useCapture: boolean);
+        removeEventListener(type: string, listener: Function, useCapture?: boolean);
 
         /**
          * 清除所有事件
@@ -2057,7 +2056,7 @@ declare module ss2d {
         /**
          * 设置加载事件
          */
-        on(type: string, listener: Function, scope: Object, once: boolean, data: Object, useCapture: boolean);
+        on(type: string, listener: Function, scope?: Object, once?: boolean, data?: Object, useCapture?: boolean);
 
         off(type: string, listener: Function, useCapture: boolean);
 
@@ -2155,7 +2154,7 @@ declare module ss2d {
      * 演示地址:http://sirius2d.com/demos/d_1/
      */
     class LoadQueue extends AbstractLoader {
-        constructor(useXHR: boolean, basePath, crossOrigin);
+        constructor(useXHR: boolean, basePath?, crossOrigin?);
 
         removeAll();
         remove(idsOrUrls);
@@ -2167,11 +2166,11 @@ declare module ss2d {
          * 载入加载队列
          * @param manifest 加载队列
          */
-        loadManifest(manifest, loadNow: boolean, basePath);
+        loadManifest(manifest, loadNow?: boolean, basePath?);
 
         load();
 
-        getResult(value, rawResult);
+        getResult(value, rawResult?);
         setPaused(value: boolean);
         close();
     }
@@ -3023,4 +3022,6 @@ declare class ss2d {
     // TODO: need?
     //static sound
 
+    // this is availble after you new a stage
+    static stage: ss2d.Stage2D;
 }
