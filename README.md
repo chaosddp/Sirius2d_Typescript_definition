@@ -3,6 +3,4 @@ Sirius2d.d.ts
 
 Sirius2d的ts定义文件
 
-Next:
-1. 现在的结构有点乱，准备重新整理下
-2. test里的sample有点问题，之前对于scene和movieclip有点没理解清楚，需要修改
+Next: 1. 现在的结构有点乱，准备重新整理下, 2. test里的sample有点问题，之前对于scene和movieclip有点没理解清楚，需要修改
