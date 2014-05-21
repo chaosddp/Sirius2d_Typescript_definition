@@ -1,4 +1,5 @@
-Sirius2d_Typescript_definition
+Sirius2d.d.ts
 ==============================
 
 Sirius2d的ts定义文件
+
