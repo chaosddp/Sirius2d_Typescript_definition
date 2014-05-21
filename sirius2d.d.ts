@@ -1490,7 +1490,75 @@ declare module ss2d {
          */
         onDrawFrame();
 
+
+
+
+        /**************Added at v1.1.0**************/
+        // TODO: new public properties needed?
+
+
+
+        /**
+         * 读取像素,只有等待回调函数结束时才能获取当前区域正确的像素信息
+         * 
+         * @param colorArray 像素的缓存数组, Added by Chaos: 当callback之后这个数组里存放的就是像素信息
+         * @param x 从X点开始读取像素信息
+         * @param y 从Y点开始读取像素信息
+         * @param width 读取像素区域的宽度
+         * @param height 读取像素区域的高度
+         */
+        readPixels( colorArray:Uint8Array, x: number, y: number, width: number, height: number, readPixelsCallBback:Function);
+
+        /**
+         * 缩放场景
+         * @param scaleX 缩放X轴
+         * @param scaleY 缩放Y轴
+         */
+        zoom(scaleX: number, scaleY: number);
+
+        /**
+         * 设置场景大小
+         */
+        size(width:number, height:number);
+
+        /**
+         * 设置游戏场景自适应
+         */
+        adjustToBrowser(AdjustType:screenAdjust);
+
+       /**
+        * 设置用户自定义适应屏幕方案
+        * 
+        * TODO: this callback used to custom calculation with event parameter e, it contains some useful properties, add a event type?
+        */
+        setCustomAdjust(fun: Function);
+
+       /**
+        * 跟随窗大小改变口开关
+        */
+        setAutoAdjustToBrowser(value: boolean);
+
+        /**
+         * 获取重绘次数
+         */
+        drawNumber(): number;
+
+        //TODO:needed?
+        //showStats();
     }
+
+    /******************Added at v1.1.0************************/
+
+    /*
+     * 游戏场景自适应类型
+     */
+    enum screenAdjust {
+        Ratio,
+        Fill,
+        Custom
+    }
+    
+
 
     /**
     * TextField 文字处理类，目前为测试版本。

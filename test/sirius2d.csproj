@@ -21,7 +21,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="index.html" />
-    <Content Include="js\sirius2d.1.0.0.min.js" />
+    <Content Include="js\sirius2d.js" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="js\app.ts" />
