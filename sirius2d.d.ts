@@ -1552,7 +1552,7 @@ declare module ss2d {
         /**
         * 侦听事件
         */
-        addEventListener(type: string, listener: Function, useCapture: boolean);
+        addEventListener(type: string, listener: Function, useCapture?: boolean);
 
         /**
          * 删除事件
