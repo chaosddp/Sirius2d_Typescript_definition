@@ -649,7 +649,7 @@ declare module ss2d {
      */
     class Scene extends EventDispatcher {
 
-        constructor(textureData: Texture);
+        constructor(textureData: Texture, quad:number);
 
         applyQuad(cache: boolean): Quad;
 
