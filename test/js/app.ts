@@ -55,6 +55,8 @@ module demo {
             this.setAssets();
             this.loadAssets();
         }
+
+        
     }
 
     export class TestScene01 extends SimpleScene {
@@ -168,12 +170,24 @@ window.onload = () => {
 
     var game = new demo.SimpleGame("cv", 800, 600);
 
-    game.add("test", new demo.TestScene01());
-    game.add("test02", new demo.TestScene02());
-    game.add("test03", new demo.TestScene03());
+    var demolist = document.getElementById("demos");
 
-    game.start("test03");
+    demolist.appendChild(new Option("start", "start"));
+    game.add("start", new demo.TestScene01());
 
+    demolist.appendChild(new Option("skew", "skew"));
+    game.add("skew", new demo.TestScene02());
 
+    demolist.appendChild(new Option("transparent", "transparent"));
+    game.add("transparent", new demo.TestScene03());
 
+    demolist.onchange = function (e: Event) {
+        var target: HTMLSelectElement = this;
+
+       var option:HTMLOptionElement= target.options[target.selectedIndex];
+
+        if (option.value !== "-1") {
+            game.start(option.value);
+        }
+    }
 };
