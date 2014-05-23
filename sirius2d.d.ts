@@ -121,25 +121,6 @@ declare module ss2d {
     function cancelFullScreen();
 
     /**
-     * 数据列表类
-     * 
-     * TODO: List related needed?
-     */
-    module List { }
-
-    class List { }
-
-    module ListDecoder { }
-
-    class ListDecoder { }
-
-    module ListEncoder { }
-
-    class ListEncoder { }
-
-    class ListItem { }
-
-    /**
      * Blend 实现图像特效，粒子混色的重要手段，通过混色可以实现意想不到的神奇效果。
      * 
      * 演示地址:http://sirius2d.com/demos/d_22
@@ -202,1050 +183,21 @@ declare module ss2d {
         BLEND_ADD_ALPHA
     }
 
-    /**
-    * DisplayObject 最底层的显示对象基类。
-    */
-    class DisplayObject extends EventDispatcher {
-
-        x: number;
-        y: number;
-
-        /**
-         * 使用GPU实现位移功能
-         * 
-         * TODO: needed?
-         */
-        //GPUX: number;
-
-        /**
-         * 使用GPU实现位移功能
-         * 
-         * TODO: needed?
-         */
-        //GPUY: number;
-
-        /**
-         * 是否开启GPU加速 true:开启   false:不开启
-         */
-        GPU: boolean;
-
-        getColor(): { r: number; g: number; b: number };
-
-        setColor(value: any);
-
-
-        // TODO: so many set/get, can be changed with Object.defineProperty?
-
-        getR(): number;
-        setR(value: number);
-        getG(): number;
-        setG(value: number);
-        getB(): number;
-        setB(value: number);
-        getA(): number;
-        setA(value: number);
-        getX(): number;
-        setX(value: number);
-        getY(): number;
-        setY(value: number);
-        getWidth(): number;
-        setWidth(value: number);
-        getHeight(): number;
-        setHeight(value: number);
-        getScaleX(): number;
-        setScaleX(value: number);
-        getScaleY(): number;
-        setScaleY(value: number);
-
-        /**
-        * 获取对象的X轴倾斜值
-        */
-        getSkewX(): number;
-
-        /**
-        * 设置对象的X轴倾斜值
-        */
-        setSkewX(value: number);
-
-        /**
-         * 获取对象的Y轴倾斜值
-         */
-        getSkewY(): number;
-
-        /**
-         * 设置对象的Y轴倾斜值
-         */
-        setSkewY(value: number);
-
-        /**
-         * 获取对象的X轴偏移位置
-         */
-        getPivotX(): number;
-
-        /**
-        * 设置对象的X轴偏移位置
-        */
-        setPivotX(value: number);
-
-        /**
-         * 获取对象的Y轴偏移量
-         */
-        getPivotY(): number;
-
-        /**
-         * 设置对象的Y轴偏移量
-         */
-        setPivotY(value: number);
-
-        getRotation(): number;
-        setRotation(value: number);
-        getAlpha(): number;
-        setAlpha(value: number);
-        getVisible(): boolean;
-        setVisible(value: boolean);
-
-        /**
-        * 获取对象的刷新状态
-        */
-        getIsRedraw(): boolean;
-
-        /**
-         * 设置对象的刷新状态
-         */
-        setIsRedraw(value: boolean);
-
-        getParent();
-        setParent(value);
-
-        getMouseEnabled(): boolean;
-
-        setMouseEnabled(value: boolean);
-
-        getUserData();
-
-        setUserData(value:Object);
-
-        /**
-         * 获取对象中心对齐状态
-         */
-        getCenter(): boolean;
-
-        /**
-         * 设置对象中心对齐状态
-         */
-        setCenter(value: boolean);
-
-        /**
-         * 获取对象强制中心对齐状态 (无视动画偏移量的影响)
-         */
-        getForceCenter(): boolean;
-
-        /**
-         * 设置对象强制中心对齐状态 (无视动画偏移量的影响)
-         */
-        setForceCenter(value: boolean);
-
-        /**
-         * 检测对象与坐标点的碰撞
-         */
-        hitTestPoint(x: number, y: number): boolean;
-
-        /**
-         * 检测对象与对象的碰撞
-         * 
-         * TODO: child is a DisplayObject?
-         */
-        hitTestObject(child): boolean;
-
-        /**
-         * 检测对象与范围的碰撞
-         */
-        hitTestRoundness(x: number, y: number, radius: number): boolean;
+    class Capabilities {
+        static pixelRatio: number;
+        static viewport: { width: number; height: number };
+        static screen: { width: number; height: number };
+        static iPhone: boolean;
+        static iPhone4: boolean;
+        static iPad: boolean;
+        static android: boolean;
+        static IOS: boolean;
+        static mobile: boolean;
     }
 
     /**
-     * 帧缓存类 用于后处理的必须类，使用它可以把当前屏幕的内容拷贝到一张特定的纹理上，用于做后期的屏幕特效。
-     * 
-     * 演示地址：http://sirius2d.com/demos/d_37/
-     */
-    class FrameBuffer {
-
-        // TODO: type
-        setDisplay(value:Scene);
-
-        // TODO: type
-        getFrameBuff(): Scene;
-
-        isClear(value: boolean);
-
-        addChild(child: Scene);
-
-        removeChild(child: Scene);
-    }
-
-    /**
-     * MovieClip 影片剪辑类,不建议多用,一般用于显示测试,后处理,单个大背景,如果显示数量很多建议用Scene
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_10/
-     */
-    class MovieClip extends Scene {
-
-        constructor(textureData: Texture);
-
-        /**
-         * 检测对象与对象的碰撞
-         */
-        hitTestObject(child): boolean;
-
-        /**
-        * 检测对象与范围的碰撞
-        */
-        hitTestRoundness(x: number, y: number, radius: number): boolean;
-
-        // TODO: make a interface to share same method with Quad?
-
-        setTextureID(value: number);
-        getTextureID(): number;
-        setTileName(name: string);
-        setTileId(id: number);
-        getCurrentFrame(): number;
-        getTotalFrame(): number;
-
-        /**
-         * 设置纹理片段X坐标偏移位置
-         */
-        setTileXOffset(value: number);
-
-        /**
-         * 获取纹理片段X坐标偏移位置
-         */
-        getTileXOffset(): number;
-
-        /**
-         * 设置纹理片段Y坐标偏移位置
-         */
-        setTileYOffset(value: number);
-
-        /**
-         * 获取纹理片段Y坐标偏移位置
-         */
-        getTileYOffset(): number;
-
-        /**
-         * 设置纹理片段宽度偏移位置
-         */
-        setTileWidthOffset(value: number);
-
-        /**
-         * 获取纹理片段宽度偏移位置
-         */
-        getTileWidthOffset(): number;
-
-        /**
-         * 设置纹理片段高度偏移位置
-         */
-        setTileHeightOffset(value: number);
-
-        /**
-         * 获取纹理片段高度偏移位置
-         */
-        getTileHeightOffset(): number;
-
-        setAnimationSpeed(frame: number);
-
-        /**
-         * 设置顶点位置 (index: 0-左上，1-左下，2-右上，3-右下)
-         */
-        setIndexVertext(index: number, x: number, y: number);
-
-        /**
-         * 获取顶点位置 (index: 0-左上，1-左下，2-右上，3-右下)
-         */
-        getIndexVertext(index): Point;
-
-        /**
-         * 获得顶点数据
-         */
-        getVertex(index: number): Point;
-
-        loop(value: boolean);
-
-        play();
-
-        stop();
-
-        gotoAndPlay(value: number);
-
-        gotoAndStop(value: number);
-
-        /**
-         * 添加帧脚本
-         * 
-         * TODO: type?
-         */
-        addFrameScript(value);
-
-        /**
-         * 删除帧脚本
-         */
-        removeFrameScript(value);
-
-        /**
-         * 删除所有帧函数
-         */
-        removeAllFrameScript();
-
-        rollbackAnimation(value: boolean);
-
-        getCenter(): boolean;
-
-        setCenter(value: boolean);
-
-        dispose();
-
-
-        /**
-         * 获得绝对中心点
-         */
-        absCentre(): Point;
-
-        /**
-         * 设置融合矩阵
-         * 
-         * TODO: matrix?
-         */
-        setTransform(value);
-
-        /**
-         * 获取融合矩阵
-         * 
-         * TODO: type?
-         */
-        getTransform();
-
-        paint();
-
-        /**
-         * 获取对象颜色值
-         * 
-         * TODO: type?
-         */
-        getColor();
-
-        /**
-         * 设置对象颜色值
-         */
-        setColor(value);
-
-        //TODO: seems like quad not contains set/setColor function?
-        //TODO: make an interface to share method with DisplayObject
-
-
-        getR(): number;
-        setR(value: number);
-        getG(): number;
-        setG(value: number);
-        getB(): number;
-        setB(value: number);
-        getA(): number;
-        setA(value: number);
-        getX(): number;
-        setX(value: number);
-        getY(): number;
-        setY(value: number);
-        getWidth(): number;
-        setWidth(value: number);
-        getHeight(): number;
-        setHeight(value: number);
-        getScaleX(): number;
-        setScaleX(value: number);
-        getScaleY(): number;
-        setScaleY(value: number);
-
-        /**
-        * 获取对象的X轴倾斜值
-        */
-        getSkewX(): number;
-
-        /**
-        * 设置对象的X轴倾斜值
-        */
-        setSkewX(value: number);
-
-        /**
-         * 获取对象的Y轴倾斜值
-         */
-        getSkewY(): number;
-
-        /**
-         * 设置对象的Y轴倾斜值
-         */
-        setSkewY(value: number);
-
-        /**
-         * 获取对象的X轴偏移位置
-         */
-        getPivotX(): number;
-
-        /**
-        * 设置对象的X轴偏移位置
-        */
-        setPivotX(value: number);
-
-        /**
-         * 获取对象的Y轴偏移量
-         */
-        getPivotY(): number;
-
-        /**
-         * 设置对象的Y轴偏移量
-         */
-        setPivotY(value: number);
-
-        getRotation(): number;
-        setRotation(value: number);
-        getAlpha(): number;
-        setAlpha(value: number);
-        getVisible(): boolean;
-        setVisible(value: boolean);
-
-        /**
-        * 获取对象的刷新状态
-        */
-        getIsRedraw(): boolean;
-
-        /**
-         * 设置对象的刷新状态
-         */
-        setIsRedraw(value: boolean);
-
-        getParent();
-        setParent(value);
-
-        getMouseEnabled(): boolean;
-
-        setMouseEnabled(value: boolean);
-
-        getUserData();
-
-        setUserData(value:Object);
-
-        /**
-         * 获取对象强制中心对齐状态 (无视动画偏移量的影响)
-         */
-        getForceCenter(): boolean;
-
-        /**
-         * 设置对象强制中心对齐状态 (无视动画偏移量的影响)
-         */
-        setForceCenter(value: boolean);
-
-    }
-
-    /**
-     * Scene 场景管理类，开发高效率游戏的必要类，它不是一个显示对象，而是一个批处理的对象池，使用它你必须事先明确需要多少个Quad，当以后开发时再从Scene里去取,Quad是整个引擎里功能最多的显示对象。
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_12/
-     */
-    class Scene extends EventDispatcher {
-
-        constructor(textureData: Texture, quad:number);
-
-        applyQuad(cache: boolean): Quad;
-
-        hideQuad(child: Quad);
-
-        showQuad(child: Quad, parameter);
-
-        setTexture(value: Texture);
-
-        getTexture(): Texture;
-
-        getMouseEnabled(): boolean;
-
-        setMouseEnabled(value: boolean);
-
-        setShader(value: ShaderAbstract);
-
-        getShader(): ShaderAbstract;
-
-        blend(value: Blend);
-
-        hitTestPoint(x: number, y: number): boolean;
-
-        paint();
-
-    }
-
-    /**
-     * Texture 纹理贴图类 游戏里显示图像的核心封装类，所有的图像必须转换为纹理才能提交给引擎使用
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_1/
-     */
-    class Texture {
-
-        constructor(...paramemters);
-
-        width: number;
-        height: number;
-        texture;
-        quadResource: QuadResource;
-
-        /**
-         * 基于canvas创建新的纹理
-         */
-        newCanvas(canvas: HTMLCanvasElement, xTile: number, yTile: number, xSampling: number, ySampling: number);
-
-        /**
-         * 基于图片创建纹理
-         */
-        newBitmap(image, xTile: number, yTile: number, xSampling: number, ySampling: number);
-
-        /**
-         * 基于精灵创建纹理
-         */
-        newSprite(image, xml, xTile: number, yTile: number, xSampling: number, ySampling: number);
-
-        /**
-         * 创建空纹理
-         */
-        newTexture(width: number, height: number, xTile: number, yTile: number, xSampling: number, ySampling: number);
-
-        /**
-         * 转换为帧缓存
-         */
-        transformTextureBuffer();
-
-        dispose();
-        loadXml(xml);
-    }
-
-    /**
-     * TextureStyle 设置纹理显示采样样式，通常用于设置循环滚动的背景。
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_28/
-     */
-    class TextureStyle {
-
-        //TODO:enum?
-
-        static REPEAT: number;
-        static MIRRORED_REPEAT: number;
-        static CLAMP_TO_EDGE: number;
-        static LINEAR: number;
-        static NEAREST: number;
-
-        xTile: number;
-        yTile: number;
-        xSampling: number;
-        ySampling: number;
-    }
-
-    class QuadFrame {
-        name: string;
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-
-        /**
-        * 帧X偏移坐标
-        */
-        frameX: number;
-
-        /**
-        * 帧Y偏移坐标
-        */
-        frameY: number;
-
-        /**
-        * 帧最大宽度
-        */
-        frameHeight: number;
-
-        /**
-        * 帧最大高度
-        */
-        frameWidth: number;
-    }
-
-    class QuadData {
-
-        name: string;
-
-        //TODO:type?
-        quadFrameLst: Array<QuadFrame>;
-    }
-
-    class QuadResource {
-
-        //TODO:type?
-        quadDataList: Array<QuadData>;
-    }
-
-    /**
-     * Quad 引擎中最强大的显示对象类，它不能独立存在，只能基于Scene对象池的子对象存在，Scene代表一次渲染，而它可以在一次渲染中完成多次渲染的效果。
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_12/
-     */
-    class Quad extends DisplayObject {
-
-        //TODO:type? optional?
-        constructor(id: number, texture: Texture, vertices, textureUV, verticesColor, jointList, indexList, verticesGPUList);
-
-        /**
-         * 设置启用动画矩阵更新 (当动画宽高一样时，可禁用来提高效率)
-         */
-        isAnimationMatrix: boolean;
-
-        /**
-         * 是否启用顶点着色功能,如果对象没有颜色改变需求关闭此开关可提高性能
-         */
-        isVertexColour: boolean;
-
-        /**
-         * 设置顶点颜色 (0-左上，1-左下，2-右上，3-右下)
-         */
-        setVertextColour(index: number, r: number, g: number, b: number, a: number);
-
-        setTextureID(value: number);
-
-        getTextureID(): number;
-
-        setTileName(name: string);
-
-        setTileId(id: number);
-
-        getCurrentFrame(): number;
-
-        getTotalFrame(): number;
-
-
-        /**
-         * 设置纹理片段X坐标偏移位置
-         */
-        setTileXOffset(value: number);
-
-        /**
-         * 获取纹理片段X坐标偏移位置
-         */
-        getTileXOffset(): number;
-
-        /**
-         * 设置纹理片段Y坐标偏移位置
-         */
-        setTileYOffset(value: number);
-
-        /**
-         * 获取纹理片段Y坐标偏移位置
-         */
-        getTileYOffset(): number;
-
-        /**
-         * 设置纹理片段宽度偏移位置
-         */
-        setTileWidthOffset(value: number);
-
-        /**
-         * 获取纹理片段宽度偏移位置
-         */
-        getTileWidthOffset(): number;
-
-        /**
-         * 设置纹理片段高度偏移位置
-         */
-        setTileHeightOffset(value: number);
-
-        /**
-         * 获取纹理片段高度偏移位置
-         */
-        getTileHeightOffset(): number;
-
-        /**
-         * 指示动画播放的帧率.
-         */
-        setAnimationSpeed(frame: number);
-
-        /**
-         * 设置顶点位置 (index: 0-左上，1-左下，2-右上，3-右下)
-         */
-        setIndexVertext(index: number, x: number, y: number);
-
-        /**
-         * 获取顶点位置 (index: 0-左上，1-左下，2-右上，3-右下)
-         */
-        getIndexVertext(index): Point;
-
-        /**
-         * 获得顶点数据
-         */
-        getVertex(index: number): Point;
-
-        loop(value: boolean);
-
-        play();
-
-        stop();
-
-        gotoAndPlay(value: number);
-
-        gotoAndStop(value: number);
-
-        /**
-         * 添加帧脚本
-         * 
-         * TODO: type?
-         */
-        addFrameScript(value);
-
-        /**
-         * 删除帧脚本
-         */
-        removeFrameScript(value);
-
-        /**
-         * 删除所有帧函数
-         */
-        removeAllFrameScript();
-
-        rollbackAnimation(value: boolean);
-
-        /**
-         * 设置帧延迟
-         */
-        frameDelay(value: number);
-
-        //更新帧信息
-        // TODO: boolean?
-        updateFrame(flag);
-
-        //刷新绝对中心点
-        upAbsPoint();
-
-        /**
-         * 获得绝对中心点
-         */
-        absCentre(): Point;
-
-        /**
-         * 设置融合矩阵
-         * 
-         * TODO: matrix?
-         */
-        setTransform(value);
-
-        /**
-         * 获取融合矩阵
-         * 
-         * TODO: type?
-         */
-        getTransform();
-
-        getScene(): Scene;
-
-        setScene(value: Scene);
-
-        setID(value: number);
-
-        queryName(name: string): number;
-    }
-
-    /**
-     * Sprite  显示容器类，只能用于嵌套MovieClip,Sprite可以互相嵌套。
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_4/
-     */
-    class Sprite extends Scene {
-
-        dispose();
-
-        addChild(child);
-        removeChild(child);
-        paint();
-
-        getY(): number;
-        setY(value: number);
-        getWidth(): number;
-        setWidth(value: number);
-        getHeight(): number;
-        setHeight(value: number);
-        getScaleX(): number;
-        setScaleX(value: number);
-        getScaleY(): number;
-        setScaleY(value: number);
-
-        /**
-        * 获取对象的X轴倾斜值
-        */
-        getSkewX(): number;
-
-        /**
-        * 设置对象的X轴倾斜值
-        */
-        setSkewX(value: number);
-
-        /**
-         * 获取对象的Y轴倾斜值
-         */
-        getSkewY(): number;
-
-        /**
-         * 设置对象的Y轴倾斜值
-         */
-        setSkewY(value: number);
-
-        /**
-         * 获取对象的X轴偏移位置
-         */
-        getPivotX(): number;
-
-        /**
-        * 设置对象的X轴偏移位置
-        */
-        setPivotX(value: number);
-
-        /**
-         * 获取对象的Y轴偏移量
-         */
-        getPivotY(): number;
-
-        /**
-         * 设置对象的Y轴偏移量
-         */
-        setPivotY(value: number);
-
-        getRotation(): number;
-        setRotation(value: number);
-        getVisible(): boolean;
-        setVisible(value: boolean);
-
-        /**
-        * 获取对象的刷新状态
-        */
-        getIsRedraw(): boolean;
-
-        /**
-         * 设置对象的刷新状态
-         */
-        setIsRedraw(value: boolean);
-
-        getParent();
-        setParent(value);
-
-        getMouseEnabled(): boolean;
-
-        setMouseEnabled(value: boolean);
-
-        getUserData();
-
-        setUserData(value:Object);
-    }
-
-    /**
-     * Stage2D 游戏的主场景类，只能存在一个，提供游戏的渲染架构支持。
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_1/
-     */
-    class Stage2D extends EventDispatcher {
-
-        static stageWidth: number;
-        static stageHeight: number;
-        static mouseX: number;
-        static mouseY: number;
-        static r: number;
-        static g: number;
-        static b: number;
-        static a: number;
-
-        //GL场景正交比例
-        //tatic ratio: number;
-        static shader: ShaderAbstract;
-        //TODO: type?
-        static ovMatrix;
-        // TODO: type?
-        static canvas: HTMLCanvasElement;
-        //TODO: type?
-        static context: CanvasRenderingContext2D;
-        //TODO:type?
-        static gl: WebGLObject;
-        // TODO:type?
-        static rttFrameBuffer: FrameBuffer;
-        //TODO:type?
-        static rttTexture: Texture;
-
-        constructor(canvasId: string, width: number, height: number);
-
-        fps: number;
-        fpsTime: number;
-
-        /**
-        * 显示对象列表
-        * 
-        * TODO: type?
-        */
-        displayerlist: Array<any>;
-
-        /**
-        * 缓存显示列表
-        * 
-        * TODO: type?
-        */
-        frameBufferlist: Array<FrameBuffer>;
-
-        addChild(child);
-
-        removeChild(child);
-
-        // TODO: type
-        addFrameBuffer(value: FrameBuffer);
-
-        // TODO: new public properties needed?
-
-        /**
-         * 读取像素,只有等待回调函数结束时才能获取当前区域正确的像素信息
-         */
-        readPixels( colorArray:Uint8Array, x: number, y: number, width: number, height: number, readPixelsCallBback:Function);
-
-        zoom(scaleX: number, scaleY: number);
-
-        size(width:number, height:number);
-
-        /**
-         * 设置游戏场景自适应
-         */
-        adjustToBrowser(AdjustType:screenAdjust);
-
-       /**
-        * 设置用户自定义适应屏幕方案
-        * 
-        * TODO: this callback used to custom calculation with event parameter e, it contains some useful properties, add a event type?
-        */
-        setCustomAdjust(fun: Function);
-
-       /**
-        * 跟随窗大小改变口开关
-        */
-        setAutoAdjustToBrowser(value: boolean);
-
-        /**
-         * 获取重绘次数
-         */
-        drawNumber(): number;
-
-
-        showStats(value:boolean);
-    }
-
-
-    /*
-     * 游戏场景自适应类型
-     */
-    enum screenAdjust {
-        Ratio,
-        Fill,
-        Custom
-    }
-    
-
-    /**
-    * TextField 文字处理类
-    * 
-    * 演示地址:http://sirius2d.com/demos/d_42/
-    *
-    * TODO: seems like most part from MovieClip not suitable
-    */
-    class TextField   {
-
-        constructor(w?: number, h?: number);
-
-        setFontSize(value: number);
-
-        getFontSize(): number;
-
-        setText(text: string, x?: number, y?: number);
-
-        getText(): string;
-
-        setTypefac(font: string);
-
-        getTypefac(): string;
-
-        /*
-         * 设置颜色, r/g/b 0~1
-         */
-        setColor(r: number, g: number, b: number);
-
-        getX(): number;
-        setX(value: number);
-        getY(): number;
-        setY(value: number);
-    }
-
-    // TODO: extend method of Number, function, array needed?
-
-    module Point {
-
-        function distance(pt1: Point, pt2: Point):number;
-
-        /**
-         * 确定两个指定点之间的点。参数 f 确定新的内插点相对于参数 pt1 和 pt2 指定的两个端点所处的位置。
-         * 参数 f 的值越接近 1.0，则内插点就越接近第一个点（参数 pt1）。
-         * 参数 f 的值越接近 0，则内插点就越接近第二个点（参数 pt2）。
-         */
-        function interpolate(pt1: Point, pt2: Point, f: number): Point;
-
-        /**
-        * 将一对极坐标转换为笛卡尔点坐标。
-        */
-        function polar(len: number, angle: number): Point;
-    }
-
-    /**
-    * Point 点类
-    */
-    class Point {
-
-        x: number;
-        y: number;
-
-        getLength(): number;
-
-        /**
-        * 将另一个点的坐标添加到此点的坐标以创建一个新点。
-        */
-        add(v: Point): Point;
-
-        /**
-        * 创建此 Point 对象的副本。
-        */
-        clone(): Point;
-
-        /**
-        * 确定两个点是否相同。如果两个点具有相同的 x 和 y 值，则它们是相同的点。
-        */
-        equals(toCompare: Point): boolean;
-
-        /**
-         * 将 (0,0) 和当前点之间的线段缩放为设定的长度。
-         */
-        normalize(thicknedd: number);
-
-        /**
-         * 按指定量偏移 Point 对象。
-         * dx 的值将添加到 x 的原始值中以创建新的 x 值。
-         * dy 的值将添加到 y 的原始值中以创建新的 y 值。
-         */
-        offset(dx: number, dy: number);
-
-        /**
-         * 从此点的坐标中减去另一个点的坐标以创建一个新点。
-         */
-        subtract(v: Point): Point;
-    }
-
-    /**
-     * 可使用 ColorTransform 类调整显示对象的颜色值。可以将颜色调整或颜色转换应用于所有四种通道：红色、绿色、蓝色和 Alpha 透明度。
-     */
+      * 可使用 ColorTransform 类调整显示对象的颜色值。可以将颜色调整或颜色转换应用于所有四种通道：红色、绿色、蓝色和 Alpha 透明度。
+      */
     class ColorTransform {
 
         /**
@@ -1291,47 +243,327 @@ declare module ss2d {
         constructor(redMultiplier: number, greenMultiplier: number, blueMultiplier: number, alphaMultiplier: number, redOffset: number, greenOffset: number, blueOffset: number, alphaOffset: number);
     }
 
-    /**
-     * FrameFunction 帧函数类
-     */
-    class FrameFunction {
-        frame: number;
-        callback: Function;
-
-        constructor(v_frame: number, v_callbackFun: Function);
-    }
+    interface IDisplayable { }
 
     /**
-     * Group 群组类，用于实现Quad的嵌套操作，批量运动，骨骼运动等等
-     * 
-     * 演示地址：http://sirius2d.com/demos/d_18/
+     * DisplayObject 最底层的显示对象基类。
      */
-    class Group extends EventDispatcher {
+    class DisplayObject {
 
-        clearParentGroup();
-        containsGroup(childGroup: Group): boolean;
+        /**
+         * 使用GPU实现位移功能
+         */
+        GPUX: number;
 
-        addChild(value);
+        /**
+         * 使用GPU实现位移功能
+         */
+        GPUY: number;
 
-        removeChild(value);
+        /**
+         * 是否开启GPU加速 true:开启   false:不开启
+         */
+        GPU: boolean;
 
-        dispose();
+        /*
+         * 获取对象像素透明度
+         */
+        getA(): number;
 
-        getX(): number;
+        getAlpha(): number;
 
-        setX(value: number);
+        getB(): number;
 
-        getY(): number;
+        /*
+        获取对象中心对齐状态
+        */
+        getCenter(): boolean;
 
-        setY(value: number);
+        getColor(): { r: number; g: number; b: number };
+
+        /**
+         * 获取对象强制中心对齐状态 (无视动画偏移量的影响)
+         */
+        getForceCenter(): boolean;
+
+        getG(): number;
+
+        getHeight(): number;
+
+        /**
+        * 获取对象的刷新状态
+        */
+        getIsRedraw(): boolean;
+
+        getMouseEnabled(): boolean;
+
+        /*
+         * 获取实例名称
+         */
+        getName(): string;
+
+        // TODO: type?
+        getParent();
+
+        /**
+         * 获取对象的Y轴偏移量
+         */
+        getPivotY(): number;
+
+        /**
+         * 获取对象的X轴偏移位置
+         */
+        getPivotX(): number;
+
+        getR(): number;
 
         getScaleX(): number;
 
-        setScaleX(value: number);
-
         getScaleY(): number;
 
+        /**
+        * 获取对象的X轴倾斜值
+        */
+        getSkewX(): number;
+
+        /**
+         * 获取对象的Y轴倾斜值
+         */
+        getSkewY(): number;
+
+        getUserData();
+
+        getRotation(): number;
+
+        getVisible(): boolean;
+
+        getWidth(): number;
+
+        getX(): number;
+
+        getY(): number;
+
+        /**
+         * 检测对象与坐标点的碰撞
+         */
+        hitTestPoint(x: number, y: number): boolean;
+
+        /**
+         * 检测对象与对象的碰撞
+         * 
+         * TODO: type?
+         */
+        hitTestObject(child): boolean;
+
+        /**
+         * 检测对象与范围的碰撞
+         */
+        hitTestRoundness(x: number, y: number, radius: number): boolean;
+
+        setA(value: number);
+
+        setAlpha(value: number);
+
+        setB(value: number);
+
+        setColor(value: any);
+
+        /**
+         * 设置对象中心对齐状态
+         */
+        setCenter(value: boolean);
+
+        /**
+         * 设置对象强制中心对齐状态 (无视动画偏移量的影响)
+         */
+        setForceCenter(value: boolean);
+
+        setG(value: number);
+
+        setHeight(value: number);
+
+        /**
+         * 设置对象的刷新状态
+         */
+        setIsRedraw(value: boolean);
+
+        setMouseEnabled(value: boolean);
+
+        setName(name: string);
+
+        setParent(value);
+
+        /**
+        * 设置对象的X轴偏移位置
+        */
+        setPivotX(value: number);
+
+        /**
+         * 设置对象的Y轴偏移量
+         */
+        setPivotY(value: number);
+
+        setR(value: number);
+
+        setRotation(value: number);
+
+        setScaleX(value: number);
+
         setScaleY(value: number);
+
+        /**
+        * 设置对象的X轴倾斜值
+        */
+        setSkewX(value: number);
+
+        /**
+         * 设置对象的Y轴倾斜值
+         */
+        setSkewY(value: number);
+
+        setUserData(value: Object);
+
+        setVisible(value: boolean);
+
+        setX(value: number);
+
+        setY(value: number);
+
+        setWidth(value: number);
+
+        // TODO: so many set/get, why not Object.defineProperty?
+    }
+
+    class Event {
+
+        static INITIALIZE: string;
+        static ADDED: string;
+        static REMOVED: string;
+        static ADDED_TO_STAGE: string;
+        static REMOVED_FROM_STAGE: string;
+        static ENTER_FRAME: string;
+        static COMPLETE: string;
+
+        constructor(type, bubbles: boolean, cancelable: boolean);
+
+        type;
+        target;
+        currentTarget;
+        eventPhase: number;
+        bubbles: boolean;
+        cancelable: boolean;
+        timeStamp: number;
+        defaultPrevented: boolean;
+        propagationStopped: boolean;
+        immediatePropagationStopped: boolean;
+        removed: boolean;
+
+        preventDefault();
+        stopPropagation();
+        stopImmediatePropagation();
+        remove();
+    }
+
+    /**
+     * EventDispatcher 事件处理器基类
+     */
+    class EventDispatcher {
+
+        //TODO: has parameters?
+        constructor(type?: string, bubbles?: boolean, cancelable?: boolean);
+
+        /**
+        * 侦听事件
+        */
+        addEventListener(type: string, listener: Function, useCapture?: boolean);
+
+        /**
+         * 发送事件
+         */
+        dispatchEvent(eventObj, target);
+
+        /**
+         * 检测是否存在相应的事件
+         */
+        hasEventListener(type: string): boolean;
+
+        /**
+         * 设置加载事件
+         */
+        on(type: string, listener: Function, scope?: Object, once?: boolean, data?: Object, useCapture?: boolean);
+
+        /**
+         * 删除事件
+         */
+        removeEventListener(type: string, listener: Function, useCapture?: boolean);
+
+        /**
+         * 清除所有事件
+         */
+        removeAllEventListeners(type: string);
+    }
+
+    /**
+     * 帧缓存类 用于后处理的必须类，使用它可以把当前屏幕的内容拷贝到一张特定的纹理上，用于做后期的屏幕特效。
+     * 
+     * 演示地址：http://sirius2d.com/demos/d_37/
+     */
+    class FrameBuffer {
+
+        //TODO: type:scene?
+        addChild(child);
+
+        /*
+         * 清理显示缓存
+         */
+        clearDisplay();
+
+        /*
+         * 获取显示缓存
+         * 
+         * TODO: type
+         */
+        getDisplay();
+
+        /*
+         * 获取帧缓存
+         * 
+         * TODO: type?
+         */
+        getFrameBuff();
+
+        /*
+         * 是否清理画面 
+         */
+        isClear(value: boolean);
+
+        removeChild(child);
+
+        // TODO: type
+        setDisplay(value);
+    }
+
+    /**
+   * Group 群组类，用于实现Quad的嵌套操作，批量运动，骨骼运动等等
+   * 
+   * 演示地址：http://sirius2d.com/demos/d_18/
+   */
+    class Group {
+
+        addChild(value);
+
+        /**
+         * 添加组中的事件
+         */
+        addEvent();
+
+        dispose();
+
+        getRotation(): number;
+
+        getScaleX(): number;
+
+        getScaleY(): number;
 
         /**
          * 获取组的X轴倾斜值
@@ -1339,25 +571,182 @@ declare module ss2d {
         getSkewX(): number;
 
         /**
-         * 设置组的X轴倾斜值
-         */
-        setSkewX(value: number);
-
-        /**
          * 获取组的Y轴倾斜值
          */
         getSkewY(): number;
+
+        getX(): number;
+
+        getY(): number;
+
+        removeChild(value);
+
+        removeEvent();
+
+        /*
+         * 重置组的所有属性
+         */
+        reset();
+
+        setRotation(value: number);
+
+        setScaleX(value: number);
+
+        setScaleY(value: number);
+
+        /**
+         * 设置组的X轴倾斜值
+         */
+        setSkewX(value: number);
 
         /**
          * 设置组的Y轴倾斜值
          */
         setSkewY(value: number);
 
-        getRotation(): number;
+        setX(value: number);
 
-        setRotation(value: number);
+        setY(value: number);
+    }
 
-        setParentGroup(value: Group);
+    class AbstractLoader extends EventDispatcher {
+        loader: boolean;
+        canceled: boolean;
+        progress: number;
+
+        getItem();
+        load();
+        close();
+        buildPath(src, data);
+    }
+
+    /**
+     * 队列加载器 用于加载多个游戏用资源。
+     * 
+     * 演示地址:http://sirius2d.com/demos/d_1/
+     */
+    class LoadQueue extends AbstractLoader {
+
+        constructor(useXHR: boolean, basePath?, crossOrigin?);
+
+        removeAll();
+        remove(idsOrUrls);
+        reset();
+        installPlugin(plugin);
+        loadFile(file, loadNow: boolean, basePath);
+
+        loadManifest(manifest, loadNow?: boolean, basePath?);
+
+        load();
+
+        getResult(value: string, rawResult?);
+        setPaused(value: boolean);
+        close();
+    }
+
+    /*
+     * 数据列表类
+     */
+    class List {
+
+        constructor(id: string, allowOverride: boolean);
+
+        /*
+         * 实例总数
+         */
+        static instances: number;
+
+        /*
+         * 是否允许覆盖列表中的数据
+         */
+        allowOverride: boolean;
+
+        /*
+         * 数据列表中的群组
+         * 
+         * TODO: type?Array<Group>?
+         */
+        groupsObject;
+
+        id: string;
+
+        ids: Array<string>;
+
+        items;
+
+        listClass;
+
+        add(id: string, value);
+
+        /*
+         * 清除指定数据表中的数据
+         */
+        clearList(dictionary);
+
+        //TODO: type?
+        clone();
+
+        dispose();
+
+        /*
+         * 把当前数据表导出成XML数据
+         * 
+         * TODO: type?
+         */
+        export();
+
+        /*
+         * 把XML数据解析成一张List数据表
+         */
+        from(data);
+
+        /*根据数据组ID获取该数据组*/
+        group(id: string);
+
+        index(index: number);
+
+        /*根据数据ID获取数据表中的数据*/
+        item(id: string);
+
+        length(): number;
+
+        match(query: string): boolean;
+
+        merge(list: List);
+
+        remove(id: string): List;
+
+        reset(everything: boolean);
+
+        /*把数据表转换成数组*/
+        toListString(): string;
+    }
+
+    /*数据列表XML解析器类*/
+    class ListDecoder {
+        //TODO: XmlDocument?
+        /*解码XML数据*/
+        static decode(data);
+    }
+
+    class ListEncoder {
+        //TODO: XmlDocument?
+        /*将数据表数据编码成XML数据格式*/
+        encode(data: List);
+    }
+
+    class ListItem {
+        constructor(id: string, value);
+
+        id: string;
+        value;
+
+        dispose();
+
+        //TODO: type
+        match(query): boolean;
+
+        toString();
     }
 
     class Matrix2D {
@@ -1370,37 +759,32 @@ declare module ss2d {
         rawData: Array<any>;
 
         /**
-         * 重置矩阵
-         */
-        identity();
-
-        /**
-         * 3*3优化矩阵融合
+         * 1*3矩阵融合
          * 
          * TODO: type?
          */
-        add3x32(v, v1, v2);
-
-        /**
-         * 3*3矩阵融合
-         * 
-         * TODO: type?
-         */
-        add3x3(v1, v2);
+        add1x3(v1, v2): Array<any>;
 
         /**
          * 1*3优化矩阵融合
          * 
          * TODO: type?
          */
-        add1x32(v, v1, v2);
+        add1x32(v, v1, v2): Array<any>;
 
         /**
-         * 1*3矩阵融合
+         * 3*3矩阵融合
          * 
          * TODO: type?
          */
-        add1x3(v1, v2);
+        add3x3(v1, v2): Array<any>;
+
+        /**
+         * 3*3优化矩阵融合
+         * 
+         * TODO: type?
+         */
+        add3x32(v, v1, v2): Array<any>;
 
         /**
          *平移,旋转
@@ -1413,53 +797,513 @@ declare module ss2d {
         appendTranslation(scaleX: number, scaleY: number, skewX: number, skewY: number);
 
         /**
-         * 更新矩阵信息
-         */
-        upDateMatrix(rotation: number, x: number, y: number, scaleX: number, scaleY: number, skewX: number, skewY: number);
-    }
-
-    class Matrix3D {
-
-        //TODO: needed?
-        rawData: Array<any>;
-
-        /**
          * 重置矩阵
          */
         identity();
 
         /**
-         * 4*4矩阵融合
-         * 
-         * TODO: type?
-         */
-        add4x4(a1, a2);
-
-        /**
-         * 1*4矩阵融合
-         * 
-         * TODO: type?
-         */
-        add1x4(v1, v2);
-
-        /**
-         * 旋转矩阵
-         */
-        appendRotation(rotation: number, x: number, y: number);
-
-        /**
-         * 缩放与倾斜
-         */
-        appendTranslation(scaleX: number, scaleY: number, skewX: number, skewY: number);
-
-        /**
          * 更新矩阵信息
          */
         upDateMatrix(rotation: number, x: number, y: number, scaleX: number, scaleY: number, skewX: number, skewY: number);
     }
 
-    // TODO: needed?
-    class QuadMatrixUtil { }
+    /*MouseEvent 鼠标事件侦听事件类*/
+    class MouseEvent {
+        static MOUSE_DOWN: string;
+        static MOUSE_UP: string;
+        static MOUSE_MOVE: string;
+
+        constructor(type: string, bubbles?: boolean, cancelable?: boolean);
+
+        /*当前鼠标在舞台上的X坐标*/
+        stageX: number;
+
+        /*当前鼠标在舞台上的Y坐标*/
+        stageY: number;
+    }
+
+    /*
+     * MovieClip 影片剪辑类,不建议多用,一般用于显示测试,后处理,单个大背景,如果显示数量很多建议用Scene 
+     * 
+     * 演示地址:http://sirius2d.com/demos/d_10/
+     */
+    class MovieClip {
+
+        constructor(texture: Texture);
+
+        /*添加帧脚本*/
+        addFrameScript(FrameFunction);
+
+        dispose()
+
+        frameDelay(value: number);
+
+        getA(): number;
+
+        getAABB();
+
+        getAABBCoordinate();
+
+        getAlpha(): number;
+
+        getB(): number;
+
+        getCenter(): boolean;
+
+        getColor();
+
+        getCurrentFrame(): number;
+
+        /*获取对象强制中心对齐状态 (无视动画偏移量的影响) */
+        getForceCenter(): boolean;
+
+        getG(): number;
+
+        getHeight(): number;
+
+        getIsRedraw(): boolean;
+
+        getMouseEnabled(): boolean;
+
+        getParent();
+
+        getR(): number;
+
+        getRotation(): number;
+
+        getScaleX(): number;
+
+        getScaleY(): number;
+
+        getSkewX(): number;
+
+        getSkewY(): number;
+
+        getTextureID(): number;
+
+        getTileHeightOffset(): number;
+
+        getTileId(): number;
+
+        getTileName(): string;
+
+        getTileWidthOffset(): number;
+
+        getTileXOffset(): number;
+
+        getTileYOffset(): number;
+
+        getTotalFrame(): number;
+
+        getTransform();
+
+        getUserData();
+
+        getVisible(): boolean;
+
+        getWidth(): number;
+
+        getX(): number;
+
+        getY(): number;
+
+        gotoAndPlay(value: number);
+
+        gotoAndStop(value: number);
+
+        hitTestObject(child): boolean;
+
+        hitTestPoint(x: number, y: number): boolean;
+
+        /**
+        * 检测对象与范围的碰撞
+        */
+        hitTestRoundness(x: number, y: number, radius: number): boolean;
+
+        loop(value: boolean);
+
+        paint();
+
+        play();
+
+        queryName(name): number;
+
+        removeAllFrameScript();
+
+        removeFrameScript(value);
+
+        rollbackAnimation(value);
+
+        setA(value: number);
+
+        setAlpha(value: number);
+
+        setAnimationSpeed(frame: number);
+
+        setB(value: number);
+
+        setCenter(value: boolean);
+
+        setColor(value);
+
+        setForceCenter(value: boolean);
+
+        setG(value: number);
+
+        setHeight(value: number);
+
+        setIsRedraw(value: boolean);
+
+        setMouseEnabled(value: boolean);
+
+        setParent(value);
+
+        setR(value: number);
+
+        setRotation(value: number);
+
+        setScaleX(value: number);
+
+        setScaleY(value: number);
+
+        setSkewX(value: number);
+
+        setSkewY(value: number);
+
+        setTextureID(value: number);
+
+        setTileHeightOffset(value: number);
+
+        setTileId(id: number);
+
+        setTileName(name: string);
+
+        setTileWidthOffset(value: number);
+
+        setTileXOffset(value: number);
+
+        setTileYOffset(value: number);
+
+        setTransform(value);
+
+        setUserData(value);
+
+        setVertexColour(index: number, r: number, g: number, b: number, a: number);
+
+        setVisible(value: boolean);
+
+        setWidth(value: number);
+
+        setX(value: number);
+
+        setY(value: number);
+
+        startRedraw();
+
+        stop();
+    }
+
+
+    /**
+     * ParticleEmittersCPU 粒子发射器,可用于发射任何Quad,通常在粒子，幻影，残影时用到。
+     * 
+     * 演示地址:http://sirius2d.com/demos/d_32/
+     */
+    class ParticleEmittersCPU {
+
+        //TODO:type?
+        constructor(v_scene: Scene, v_value: number);
+
+        dispose();
+
+        //TODO:type?
+        sendParticle(x: number, y: number, v_particleStyle: ParticleStyle);
+    }
+
+    /**
+     * ParticleStyle 粒子样式表，用于处理粒子发射时的各项参数
+     * 
+     * 演示地址:http://sirius2d.com/demos/d_32/
+     */
+    class ParticleStyle {
+
+        /**
+         * 粒子透明度
+         */
+        a: number;
+
+        /**
+         * 粒子递增红色通道值
+         */
+        addR: number;
+        /**
+         * 粒子递增绿色通道值
+         */
+        addG: number;
+
+        /**
+         * 粒子递增蓝色通道值
+         */
+        addB: number;
+
+        /**
+         * 粒子递增透明度
+         */
+        addA: number;
+
+        /**
+         * 粒子角度递增值
+         */
+        angleValue: number;
+
+        /**
+         * 粒子初始化透明度
+         */
+        alphaValue: number;
+
+        /**
+         * 粒子红色通道值
+         */
+        r: number;
+
+        /**
+         * 粒子绿色通道值
+         */
+        g: number;
+
+        /**
+         * 粒子蓝色通道值
+         */
+        b: number;
+
+        loop: boolean;
+
+        /**
+         * 跳转到第几帧
+         */
+        gotoFrame: number;
+
+        /**
+         * 粒子初始化角度
+         */
+        rotationValue: number;
+
+        /**
+         * 粒子随机角度
+         */
+        rotationRandom: number;
+
+        /**
+         * 设置动画片段名称
+         */
+        tileName: string;
+
+        /*
+         *粒子X随机范围
+         */
+        scopeX: number;
+
+        /**
+         * 粒子Y随机范围
+         */
+        scopeY: number;
+
+        /**
+         * 粒子的X轴比例
+         */
+        scaleX: number;
+
+        /**
+         * 粒子的Y轴比例
+         */
+        scaleY: number;
+
+        /**
+         * 粒子X比例缩放值
+         */
+        scaleXValue: number;
+
+        /**
+         * 粒子Y比例缩放值
+         */
+        scaleYValue: number;
+
+        /**
+         * 粒子运动速度
+         */
+        speedValue: number;
+    }
+
+    /**
+       * Point 点类
+       */
+    class Point {
+
+        static distance(pt1: Point, pt2: Point): number;
+
+        /*
+         * 确定两个指定点之间的点。参数 f 确定新的内插点相对于参数 pt1 和 pt2 指定的两个端点所处的位置。 参数 f 的值越接近 1.0，则内插点就越接近第一个点（参数 pt1）。 参数 f 的值越接近 0，则内插点就越接近第二个点（参数 pt2）。
+         */
+        static interpolate(pt1: Point, pt2: Point, f: number): Point;
+
+        /*将一对极坐标转换为笛卡尔点坐标。*/
+        static polar(len: number, angle: number);
+
+        constructor(x?: number, y?: number);
+
+        /**
+        * 将另一个点的坐标添加到此点的坐标以创建一个新点。
+        */
+        add(v: Point): Point;
+
+        /**
+        * 创建此 Point 对象的副本。
+        */
+        clone(): Point;
+
+        /**
+        * 确定两个点是否相同。如果两个点具有相同的 x 和 y 值，则它们是相同的点。
+        */
+        equals(toCompare: Point): boolean;
+
+        /**
+         * 将 (0,0) 和当前点之间的线段缩放为设定的长度。
+         */
+        normalize(thicknedd: number);
+
+        /**
+         * 按指定量偏移 Point 对象。
+         * dx 的值将添加到 x 的原始值中以创建新的 x 值。
+         * dy 的值将添加到 y 的原始值中以创建新的 y 值。
+         */
+        offset(dx: number, dy: number);
+
+        /**
+         * 从此点的坐标中减去另一个点的坐标以创建一个新点。
+         */
+        subtract(v: Point): Point;
+    }
+
+    /**
+     * Quad 引擎中最强大的显示对象类，它不能独立存在，只能基于Scene对象池的子对象存在，Scene代表一次渲染，而它可以在一次渲染中完成多次渲染的效果。
+     * 
+     * 演示地址:http://sirius2d.com/demos/d_12/
+     */
+    class Quad {
+
+        //TODO:type? optional?
+        constructor(id: number, texture: Texture, vertices, textureUV, verticesColor, jointList, indexList, verticesGPUList);
+
+        /**
+         * 设置启用动画矩阵更新 (当动画宽高一样时，可禁用来提高效率)
+         */
+        isAnimationMatrix: boolean;
+
+        /**
+         * 是否启用顶点着色功能,如果对象没有颜色改变需求关闭此开关可提高性能
+         */
+        isVertexColour: boolean;
+
+        addFrameScript(FrameFunction);
+
+        dispose();
+
+        frameDelay(value: number);
+
+        getAABB();
+
+        getAABBCoordinate();
+
+        getCenter(): boolean;
+
+        getCurrentFrame(): number;
+
+        getHeight(): number;
+
+        getID(): number;
+
+        /*获取顶点位置 (index: 0-左上，1-左下，2-右上，3-右下) */
+        getIndexVertex(index: number, x: number, y: number);
+
+        getScene(): Scene;
+
+        getTextureID(): number;
+
+        getTileHeightOffset(): number;
+
+        getTileId(): number;
+
+        getTileName(): string;
+
+        getTileWidthOffset(): number;
+
+        getTileXOffset(): number;
+
+        getTileYOffset(): number;
+
+        getTotalFrame(): number;
+
+        getTransform();
+
+        /**
+         * 获得顶点数据
+         */
+        getVertex(index: number): Point;
+
+        getWidth(): number;
+
+        gotoAndPlay(value: number);
+
+        gotoAndStop(value: number);
+
+        loop(value: boolean);
+
+        play();
+
+        removeAllFrameScript();
+
+        removeFrameScript(value);
+
+        rollbackAnimation(value: boolean);
+
+        setAnimationSpeed(frame: number);
+
+        setCenter(value: boolean);
+
+        setHeight(value: number);
+
+        setID(value: number);
+
+        /*设置顶点位置 (index: 0-左上，1-左下，2-右上，3-右下) */
+        setIndexVertex(index: number, x: number, y: number);
+
+        setScene(value: Scene);
+
+        setTextureID(value: number);
+
+        setTileHeightOffset(value: number);
+
+        setTileId(id: number);
+
+        setTileName(name: string);
+
+        setTileWidthOffset(value: number);
+
+        setTileXOffset(value: number);
+
+        setTileYOffset(value: number);
+
+        setTransform(value);
+
+        /*设置顶点颜色 (0-左上，1-左下，2-右上，3-右下) */
+        setVertexColour(index: number, r: number, g: number, b: number, a: number);
+
+        setWidth(value: number);
+
+        startRedraw();
+
+        stop();
+    }
 
     /**
      * Rectangle 对象是按其位置（由它左上角的点 (x, y) 确定）以及宽度和高度定义的区域。
@@ -1557,326 +1401,66 @@ declare module ss2d {
     }
 
     /**
-     * EventDispatcher 事件处理器基类
-     */
-    class EventDispatcher {
-
-        /**
-        * 侦听事件
-        */
-        addEventListener(type: string, listener: Function, useCapture?: boolean);
-
-        /**
-         * 删除事件
-         */
-        removeEventListener(type: string, listener: Function, useCapture?: boolean);
-
-        /**
-         * 清除所有事件
-         */
-        removeAllEventListeners(type: string);
-
-        /**
-         * 设置加载事件
-         */
-        on(type: string, listener: Function, scope?: Object, once?: boolean, data?: Object, useCapture?: boolean);
-
-        off(type: string, listener: Function, useCapture: boolean);
-
-        /**
-         * 发送事件
-         * 
-         * TODO: needed?
-         */
-        dispatchEvent(eventObj, target);
-
-        /**
-         * 检测是否存在相应的事件
-         */
-        hasEventListener(type: string): boolean;
-    }
-
-    class Event {
-
-        static INITIALIZE: string;
-        static ADDED: string;
-        static REMOVED: string;
-        static ADDED_TO_STAGE: string;
-        static REMOVED_FROM_STAGE: string;
-        static ENTER_FRAME: string;
-        static COMPLETE: string;
-
-        constructor(type, bubbles: boolean, cancelable: boolean);
-
-        type;
-        target;
-        currentTarget;
-        eventPhase: number;
-        bubbles: boolean;
-        cancelable: boolean;
-        timeStamp: number;
-        defaultPrevented: boolean;
-        propagationStopped: boolean;
-        immediatePropagationStopped: boolean;
-        removed: boolean;
-
-        preventDefault();
-        stopPropagation();
-        stopImmediatePropagation();
-        remove();
-    }
-
-    /**
-     * MouseEvent 鼠标事件侦听事件类
-     */
-    class MouseEvent extends Event {
-
-        static MOUSE_DOWN: string;
-        static MOUSE_UP: string;
-        static MOUSE_MOVE: string;
-
-        constructor(type, bubbles: boolean, cancelable: boolean, stageX: number, stageY: number);
-
-        stageX: number;
-        stageY: number;
-
-    }
-
-    /**
-     * 每当 Timer 对象达到由 Timer.delay 属性指定的间隔时，Timer 对象即会调度 TimerEvent 对象。
-     */
-    class TimerEvent extends Event {
-        static TIMER: string;
-        static TIMER_COMPLETE: string;
-
-        constructor(type, bubbles: boolean, cancelable: boolean);
-    }
-
-    //TODO: needed?
-
-    class AbstractLoader extends EventDispatcher {
-        loader: boolean;
-        canceled: boolean;
-        progress: number;
-
-        getItem();
-        load();
-        close();
-        buildPath(src, data);
-    }
-
-    /**
-     * 队列加载器 用于加载多个游戏用资源。
+     * Scene 场景管理类，开发高效率游戏的必要类，它不是一个显示对象，而是一个批处理的对象池，使用它你必须事先明确需要多少个Quad，当以后开发时再从Scene里去取,Quad是整个引擎里功能最多的显示对象。
      * 
-     * 演示地址:http://sirius2d.com/demos/d_1/
+     * 演示地址:http://sirius2d.com/demos/d_12/
      */
-    class LoadQueue extends AbstractLoader {
+    class Scene {
+        /*GL裁切高度*/
+        glScissorHeight: number;
 
-        constructor(useXHR: boolean, basePath?, crossOrigin?);
+        /*GL裁切宽度 */
+        glScissorWidth: number;
 
-        removeAll();
-        remove(idsOrUrls);
-        reset();
-        installPlugin(plugin);
-        loadFile(file, loadNow: boolean, basePath);
+        /*GL裁切X轴位置*/
+        glScissorX: number;
 
-        loadManifest(manifest, loadNow?: boolean, basePath?);
+        /*GL裁切Y轴位置 */
+        glScissorY: number;
 
-        load();
+        /*是否启用顶点着色功能,如果对象没有颜色改变需求关闭此开关可提高性能*/
+        isVertexColour: boolean;
 
-        getResult(value:string, rawResult?);
-        setPaused(value: boolean);
-        close();
-    }
+        stage: Stage2D;
 
-    class XHRLoader extends AbstractLoader {
-        constructor(item, crossOrigin);
+        constructor(textureData: Texture, quad: number);
 
-        getResult(rawResult: boolean);
+        applyQuad(cache: boolean): Quad;
 
-        getAllResponseHeaders(): string;
+        blend(src: Blend, dst);
 
-        getResponseHeader(header: string): string;
-    }
+        dispose();
 
-    // TODO: needed?
+        getMouseEnabled(): boolean;
 
-    class Message {
-        userData;
-        type;
-    }
+        getShader(): ShaderAbstract;
 
-    class Broadcast {
-        static send(type, message: Message);
+        getTexture(): Texture;
 
-    }
+        hideQuad(child: Quad);
 
-    class MessageData {
-        execute(type, message: Message);
-
-        /**
-         * 检测消息列表是否存在这条消息
-         */
-        getEvents(type): boolean;
-
-        addEventMessage(type, fun: Function);
-        disposeEvent();
-        removeEventMessage(type);
-    }
-
-    class MessageList {
-        static getInstance(): MessageList;
-
-        removeEventObject(e);
-        addEventObject(e);
-    }
-
-    // TODO: needed?
-    class ParticleCPU {
-
-        constructor(v_quad);
-
-        paint();
-        show();
-        clear();
-    }
-
-    /**
-     * ParticleEmittersCPU 粒子发射器,可用于发射任何Quad,通常在粒子，幻影，残影时用到。
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_32/
-     */
-    class ParticleEmittersCPU {
-
-        run();
-
-        //TODO:type?
-        constructor(v_scene: Scene, v_value);
+        hitTestPoint(x: number, y: number): boolean;
 
         paint();
 
-        //TODO:type?
-        sendParticle(x, y, v_particleStyle: ParticleStyle);
-    }
+        showQuad(child: Quad, parameter);
 
-    /**
-     * ParticleStyle 粒子样式表，用于处理粒子发射时的各项参数
-     * 
-     * 演示地址:http://sirius2d.com/demos/d_32/
-     */
-    class ParticleStyle {
-        loop: boolean;
+        setTexture(value: Texture);
 
-        /**
-         * 设置动画片段名称
-         */
-        tileName: string;
+        setMouseEnabled(value: boolean);
 
-        /**
-         * 跳转到第几帧
-         */
-        gotoFrame: number;
-
-        /*
-         *粒子X随机范围
-         */
-        scopeX: number;
-
-        /**
-         * 粒子Y随机范围
-         */
-        scopeY: number;
-
-        /**
-         * 粒子的X轴比例
-         */
-        scaleX: number;
-
-        /**
-         * 粒子的Y轴比例
-         */
-        scaleY: number;
-
-        /**
-         * 粒子X比例缩放值
-         */
-        scaleXValue: number;
-
-        /**
-         * 粒子Y比例缩放值
-         */
-        scaleYValue: number;
-
-        /**
-         * 粒子透明度
-         */
-        a: number;
-
-        /**
-         * 粒子红色通道值
-         */
-        r: number;
-
-        /**
-         * 粒子绿色通道值
-         */
-        g: number;
-
-        /**
-         * 粒子蓝色通道值
-         */
-        b: number;
-
-        /**
-         * 粒子角度递增值
-         */
-        angleValue: number;
-
-        /**
-         * 粒子初始化角度
-         */
-        rotationValue: number;
-
-        /**
-         * 粒子随机角度
-         */
-        rotationRandom: number;
-
-        /**
-         * 粒子运动速度
-         */
-        speedValue: number;
-
-        /**
-         * 粒子初始化透明度
-         */
-        alphaValue: number;
-
-        /**
-         * 粒子递增红色通道值
-         */
-        addR: number;
-        /**
-         * 粒子递增绿色通道值
-         */
-        addG: number;
-
-        /**
-         * 粒子递增蓝色通道值
-         */
-        addB: number;
-
-        /**
-         * 粒子递增透明度
-         */
-        addA: number;
+        setShader(value: ShaderAbstract);
     }
 
     interface ShaderAbstract { }
 
+    interface ShaderAdvanced { }
+
+    interface ShaderBasis { }
+
     /**
-     * ShaderBlur 模糊效果着色器
-     */
+    * ShaderBlur 模糊效果着色器
+    */
     class ShaderBlur implements ShaderAbstract {
 
         /**
@@ -2023,25 +1607,27 @@ declare module ss2d {
     class ShaderRelief implements ShaderAbstract { }
 
     /**
-     * 音效控制器
-     */
+    * 音效控制器
+    */
     class SoundControl {
 
         originalVolume: number;
 
         isPlaying: boolean;
 
+        dispose();
+
         getVolume(): number;
+
+        mute();
 
         setVolume(value: number);
 
-        play(loops: number, delay: number);
+        play(loops?: number, delay?: number);
 
         pause();
 
         stop();
-
-        mute();
 
         unmute();
 
@@ -2064,14 +1650,12 @@ declare module ss2d {
         onComplete(callBack: Function);
 
         onError(callBack: Function);
-
-        dispose();
     }
 
     /**
      * 音效元素
      */
-    class SoundItem extends SoundControl {
+    class SoundItem {
 
         /**
         * 声音文件
@@ -2085,20 +1669,27 @@ declare module ss2d {
 
         delay: number;
 
-        /**
-         * 播放声音的延迟时间的计时器
-         */
-        //timeout: number;
-
         lastPosition: number;
 
         url: string;
 
         constructor(sound);
 
+        cancel();
+
+        dispose();
+
         getLength(): number;
 
+        getVolume(): number;
+
+        setVolume(value: number);
+
         getPosition(): number;
+
+        pause();
+
+        play(loops: number, delay: number);
 
         setPosition(value: number);
 
@@ -2109,6 +1700,10 @@ declare module ss2d {
         load(path: string): SoundItem;
 
         clone(): SoundItem;
+
+        onLoad(callBack: Function);
+
+        stop();
     }
 
     /**
@@ -2126,7 +1721,7 @@ declare module ss2d {
      * sm.group("sound").item("test_sound").play();
      *
      */
-    class SoundManager extends SoundItem {
+    class SoundManager {
 
         constructor(id: string);
 
@@ -2136,6 +1731,11 @@ declare module ss2d {
          * TODO: AudioElement?
          */
         add(id: string, value): SoundItem;
+
+        dispose();
+
+        /*根据ID获取当前声音管理器中的一个群组*/
+        group(id: string);
 
         remove(id: string): SoundManager;
 
@@ -2153,119 +1753,331 @@ declare module ss2d {
          * 当前声音管理器中的声音文件个数
          */
         length(): number;
+
+        pause();
+
+        play(loops: number, delay: number);
     }
 
-    class Capabilities {
-        static pixelRatio: number;
-        static viewport: { width: number; height: number };
-        static screen: { width: number; height: number };
-        static iPhone: boolean;
-        static iPhone4: boolean;
-        static iPad: boolean;
-        static android: boolean;
-        static IOS: boolean;
-        static mobile: boolean;
+    /**
+   * Sprite  显示容器类，只能用于嵌套MovieClip,Sprite可以互相嵌套。
+   * 
+   * 演示地址:http://sirius2d.com/demos/d_4/
+   */
+    class Sprite {
+
+        addChild(child);
+
+        dispose();
+
+        getHeight(): number;
+
+        getMouseEnabled(): boolean;
+
+        getParent();
+
+        getRotation(): number;
+
+        getScaleX(): number;
+
+        getScaleY(): number;
+
+        getSkewX(): number;
+
+        getSkewY(): number;
+
+        getUserData();
+
+        getVisible(): boolean;
+
+        getWidth(): number;
+
+        getX(): number;
+
+        getY(): number;
+
+        paint();
+
+        removeChild(child);
+
+        setHeight(value: number);
+
+        setMouseEnabled(value: number);
+
+        setParent(value);
+
+        setRotation(value: number);
+
+        setScaleX(value: number);
+
+        setScaleY(value: number);
+
+        setSkewX(value: number);
+
+        setSkewY(value: number);
+
+        setUserData(value);
+
+        setVisible(value: boolean);
+
+        setWidth(value: number);
+
+        setX(value: number);
+
+        setY(value: number);
     }
 
-    // TODO: not added to ss2d now
-    //enum KEY {
-    //    'MOUSE1',
-    //    'MOUSE2',
-    //    'MWHEEL_UP',
-    //    'MWHEEL_DOWN',
-    //    'BACKSPACE',
-    //    'TAB',
-    //    'ENTER',
-    //    'PAUSE',
-    //    'CAPS',
-    //    'ESC',
-    //    'SPACE',
-    //    'PAGE_UP',
-    //    'PAGE_DOWN',
-    //    'END',
-    //    'HOME',
-    //    'LEFT_ARROW',
-    //    'UP_ARROW',
-    //    'RIGHT_ARROW',
-    //    'DOWN_ARROW',
-    //    'INSERT',
-    //    'DELETE',
-    //    '_0',
-    //    '_1',
-    //    '_2',
-    //    '_3',
-    //    '_4',
-    //    '_5',
-    //    '_6',
-    //    '_7',
-    //    '_8',
-    //    '_9',
-    //    'A',
-    //    'B',
-    //    'C',
-    //    'D',
-    //    'E',
-    //    'F',
-    //    'G',
-    //    'H',
-    //    'I',
-    //    'J',
-    //    'K',
-    //    'L',
-    //    'M',
-    //    'N',
-    //    'O',
-    //    'P',
-    //    'Q',
-    //    'R',
-    //    'S',
-    //    'T',
-    //    'U',
-    //    'V',
-    //    'W',
-    //    'X',
-    //    'Y',
-    //    'Z',
-    //    'NUMPAD_0',
-    //    'NUMPAD_1',
-    //    'NUMPAD_2',
-    //    'NUMPAD_3',
-    //    'NUMPAD_4',
-    //    'NUMPAD_5',
-    //    'NUMPAD_6',
-    //    'NUMPAD_7',
-    //    'NUMPAD_8',
-    //    'NUMPAD_9',
-    //    'MULTIPLY',
-    //    'ADD',
-    //    'SUBSTRACT',
-    //    'DECIMAL',
-    //    'DIVIDE',
-    //    'F1',
-    //    'F2',
-    //    'F3',
-    //    'F4',
-    //    'F5',
-    //    'F6',
-    //    'F7',
-    //    'F8',
-    //    'F9',
-    //    'F10',
-    //    'F11',
-    //    'F12',
-    //    'SHIFT',
-    //    'CTRL',
-    //    'ALT',
-    //    'PLUS',
-    //    'COMMA',
-    //    'MINUS',
-    //    'PERIOD',
-    //}
 
-    ////TODO: needed?
-    //class Input {
+    /**
+     * Stage2D 游戏的主场景类，只能存在一个，提供游戏的渲染架构支持。
+     * 
+     * 演示地址:http://sirius2d.com/demos/d_1/
+     */
+    class Stage2D extends EventDispatcher {
 
-    //}
+        static b: number;
+        static a: number;
+        // TODO: type?
+        static canvas: HTMLCanvasElement;
+        //TODO: type?
+        static context: CanvasRenderingContext2D;
+        fps: number;
+        static g: number;
+        //TODO:type?
+        static gl: WebGLObject;
+        static mouseX: number;
+        static mouseY: number;
+        //TODO: type?
+        static ovMatrix;
+        static r: number;
+        // TODO:type?
+        static rttFrameBuffer: FrameBuffer;
+        //TODO:type?
+        static rttTexture: Texture;
+        static shader: ShaderAbstract;
+        static stageWidth: number;
+        static stageHeight: number;
+
+        constructor(canvasId: string, width: number, height: number);
+
+        /**
+        * 显示对象列表
+        * 
+        * TODO: type?
+        */
+        displayerlist: Array<any>;
+
+        /**
+        * 缓存显示列表
+        * 
+        * TODO: type?
+        */
+        frameBufferlist: Array<FrameBuffer>;
+
+        addChild(child);
+
+        // TODO: type
+        addFrameBuffer(value);
+
+        /**
+         * 设置游戏场景自适应
+         */
+        adjustToBrowser(AdjustType: screenAdjust);
+
+        /**
+         * 获取重绘次数
+         */
+        drawNumber(): number;
+
+        onDrawFrame();
+
+        removeChild(child);
+
+        removeFrameBuffer(value);
+
+        /**
+         * 读取像素,只有等待回调函数结束时才能获取当前区域正确的像素信息
+         */
+        readPixels(colorArray: Uint8Array, x: number, y: number, width: number, height: number, readPixelsCallBback: Function);
+
+        zoom(scaleX: number, scaleY: number);
+
+        size(width: number, height: number);
+
+        /**
+         * 设置用户自定义适应屏幕方案
+         * 
+         * TODO: this callback used to custom calculation with event parameter e, it contains some useful properties, add a event type?
+         */
+        setCustomAdjust(fun: Function);
+
+        /**
+         * 跟随窗大小改变口开关
+         */
+        setAutoAdjustToBrowser(value: boolean);
+
+        showStats(value: boolean);
+    }
+
+    /*
+     * 游戏场景自适应类型
+     */
+    enum screenAdjust {
+        Ratio,
+        Fill,
+        Custom
+    }
+
+
+    /**
+    * TextField 文字处理类
+    * 
+    * 演示地址:http://sirius2d.com/demos/d_42/
+    *
+    * TODO: seems like most part from MovieClip not suitable
+    */
+    class TextField {
+
+        constructor(w?: number, h?: number);
+
+        setFontSize(value: number);
+
+        getFontSize(): number;
+
+        setText(text: string, x?: number, y?: number);
+
+        getText(): string;
+
+        setTypefac(font: string);
+
+        getTypefac(): string;
+
+        /*
+         * 设置颜色, r/g/b 0~1
+         */
+        setColor(r: number, g: number, b: number);
+
+        getX(): number;
+        setX(value: number);
+        getY(): number;
+        setY(value: number);
+    }
+
+    /**
+       * Texture 纹理贴图类 游戏里显示图像的核心封装类，所有的图像必须转换为纹理才能提交给引擎使用
+       * 
+       * 演示地址:http://sirius2d.com/demos/d_1/
+       */
+    class Texture {
+
+        constructor(...paramemters);
+
+        width: number;
+        height: number;
+        texture;
+        quadResource: QuadResource;
+
+        /**
+         * 基于canvas创建新的纹理
+         */
+        newCanvas(canvas: HTMLCanvasElement, xTile: number, yTile: number, xSampling: number, ySampling: number);
+
+        /**
+         * 基于图片创建纹理
+         */
+        newBitmap(image, xTile: number, yTile: number, xSampling: number, ySampling: number);
+
+        /**
+         * 基于精灵创建纹理
+         */
+        newSprite(image, xml, xTile: number, yTile: number, xSampling: number, ySampling: number);
+
+        /**
+         * 创建空纹理
+         */
+        newTexture(width: number, height: number, xTile: number, yTile: number, xSampling: number, ySampling: number);
+
+        /**
+         * 转换为帧缓存
+         */
+        transformTextureBuffer();
+
+        dispose();
+        loadXml(xml);
+    }
+
+    /**
+     * TextureStyle 设置纹理显示采样样式，通常用于设置循环滚动的背景。
+     * 
+     * 演示地址:http://sirius2d.com/demos/d_28/
+     */
+    class TextureStyle {
+
+        //TODO:enum?
+
+        static REPEAT: number;
+        static MIRRORED_REPEAT: number;
+        static CLAMP_TO_EDGE: number;
+        static LINEAR: number;
+        static NEAREST: number;
+
+        xTile: number;
+        yTile: number;
+        xSampling: number;
+        ySampling: number;
+    }
+
+    class QuadFrame {
+        name: string;
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+
+        /**
+        * 帧X偏移坐标
+        */
+        frameX: number;
+
+        /**
+        * 帧Y偏移坐标
+        */
+        frameY: number;
+
+        /**
+        * 帧最大宽度
+        */
+        frameHeight: number;
+
+        /**
+        * 帧最大高度
+        */
+        frameWidth: number;
+    }
+
+    class QuadData {
+
+        name: string;
+
+        //TODO:type?
+        quadFrameLst: Array<QuadFrame>;
+    }
+
+    class QuadResource {
+
+        //TODO:type?
+        quadDataList: Array<QuadData>;
+    }
+
+    /**
+     * 每当 Timer 对象达到由 Timer.delay 属性指定的间隔时，Timer 对象即会调度 TimerEvent 对象。
+     */
+    class TimerEvent {
+        static TIMER: string;
+        static TIMER_COMPLETE: string;
+
+        constructor(type, bubbles?: boolean, cancelable?: boolean);
+    }
 
     class ColorUtil {
         static hexToRGB(hex: number): { r: number; g: number; b: number };
@@ -2303,4 +2115,5 @@ declare module ss2d {
          */
         hitPoint(p1: Point, p2: Point, p3: Point, p4: Point): boolean;
     }
+
 }
